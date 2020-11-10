@@ -24,7 +24,7 @@ class HeroesListViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() // TODO: Cell design
-        tableView.backgroundColor = .systemIndigo
+        //tableView.backgroundColor = .systemIndigo
         tableView.rowHeight = 120
         tableView.dataSource = self
         tableView.delegate = self

@@ -11,17 +11,18 @@ class AppRouter {
     
     let window: UIWindow
     
-    // TODO AppConfiguration
-    
+    lazy var appConfiguration = AppConfiguration()
+
     init(window: UIWindow) {
         self.window = window
     }
 
     func installViewIntoRootViewController() {
 
-        // TODO CreateRepository
-        let listPost = DefaultHeroesListRouter.createModule()
-        let nav = UINavigationController(rootViewController: listPost)
+        // TODO create repository with appConfiguration
+        
+        let viewController = DefaultHeroesListRouter.createModule()
+        let nav = UINavigationController(rootViewController: viewController)
         window.rootViewController = nav
     }
     
