@@ -7,10 +7,20 @@
 
 import UIKit
 
+// MARK: (Presenter -> View)
+protocol HeroesListView: class {
+    
+    func onFetchHeroesListSuccess()
+    func onFetchHeroesListFailure(error: String)
+    func showProgress()
+    func hideProgress()
+    func deselectRowAt(row: Int)
+}
+
 class HeroesListViewController: UIViewController {
     
     // MARK: - Properties
-    var presenter: ViewToPresenterHeroesListProtocol?
+    var presenter: HeroesListPresenter?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() // TODO: Cell design
@@ -42,8 +52,8 @@ class HeroesListViewController: UIViewController {
 
 }
 
-// MARK: Presenter -> View
-extension HeroesListViewController: PresenterToViewHeroesListProtocol{
+// MARK: (Presenter -> View)
+extension HeroesListViewController: HeroesListView{
     
     func onFetchHeroesListSuccess() {
 

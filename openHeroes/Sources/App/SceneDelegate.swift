@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = HeroesListRouter.createModule()
+            window.rootViewController = DefaultHeroesListRouter.createModule()
             self.window = window
             window.makeKeyAndVisible()
         }

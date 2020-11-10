@@ -7,25 +7,37 @@
 
 import Foundation
 
-class HeroesListPresenter: ViewToPresenterHeroesListProtocol {
+// MARK: (View -> Presenter)
+protocol HeroesListPresenter: class {
     
-    // MARK: Properties
-    weak var view: PresenterToViewHeroesListProtocol?
-    var interactor: PresenterToInteractorHeroesListProtocol?
-    var router: PresenterToRouterHeroesListProtocol?
+    var view: HeroesListView? { get set }
+    var interactor: HeroesListInteractorInput? { get set }
+    var router: HeroesListRouter? { get set }
+    var heroesList: [CharacterListItemDTO]? { get set }
     
+    func viewDidLoad()
+    func refresh()
+    func numberOfRowsInSection() -> Int
+    func getCellInfo(indexPath: IndexPath) -> CharacterListItemDTO?
+    func didSelectRowAt(index: Int)
+    func deselectRowAt(index: Int)
+
+}
+
+class DefaultHeroesListPresenter: HeroesListPresenter {
+    
+    weak var view: HeroesListView?
+    var interactor: HeroesListInteractorInput?
+    var router: HeroesListRouter?
     var heroesList: [CharacterListItemDTO]?
 
-
-    // MARK: Inputs from view 
+    // MARK: Inputs from view
     func viewDidLoad() {
-
         view?.showProgress()
         interactor?.loadHeroesList()
     }
     
     func refresh() {
-
         interactor?.loadHeroesList()
     }
     
@@ -46,12 +58,10 @@ class HeroesListPresenter: ViewToPresenterHeroesListProtocol {
     }
 
     func didSelectRowAt(index: Int) {
-        
         interactor?.retrieveHero(at: index)
     }
     
     func deselectRowAt(index: Int) {
-        
         view?.deselectRowAt(row: index)
     }
     
@@ -59,7 +69,7 @@ class HeroesListPresenter: ViewToPresenterHeroesListProtocol {
 
 
 // MARK: - Outputs to view
-extension HeroesListPresenter: InteractorToPresenterHeroesListProtocol {
+extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
 
     func fetchHeroesListSuccess(heroes: [CharacterListItemDTO]) {
 
@@ -75,14 +85,11 @@ extension HeroesListPresenter: InteractorToPresenterHeroesListProtocol {
     }
     
     func getHeroSuccess(_ hero: CharacterListItemDTO) {
-        
         router?.pushToHeroDetail(on: view!, with: hero.id)
     }
     
     func getHeroFailure() {
-        
         view?.hideProgress()
     }
 
-    
 }

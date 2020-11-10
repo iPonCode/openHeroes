@@ -7,10 +7,30 @@
 
 import Foundation
 
-class HeroesListInteractor: PresenterToInteractorHeroesListProtocol {
+// MARK: (Presenter -> Interactor)
+protocol HeroesListInteractorInput: class {
+    
+    var presenter: HeroesListInteractorOutput? { get set }
+    
+    func loadHeroesList()
+    func retrieveHero(at index: Int)
+}
+
+// MARK: (Interactor -> Presenter)
+protocol HeroesListInteractorOutput: class {
+    
+    func fetchHeroesListSuccess(heroes: [CharacterListItemDTO])
+    func fetchHeroesListFailure(errorResponse: ErrorResponse)
+    
+    func getHeroSuccess(_ hero: CharacterListItemDTO)
+    func getHeroFailure()
+    
+}
+
+class HeroesListInteractor: HeroesListInteractorInput {
 
     // MARK: Properties
-    weak var presenter: InteractorToPresenterHeroesListProtocol?
+    weak var presenter: HeroesListInteractorOutput?
     var heroes: [CharacterListItemDTO]?
     
     func loadHeroesList() {

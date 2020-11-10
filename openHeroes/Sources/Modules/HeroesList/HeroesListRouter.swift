@@ -7,18 +7,25 @@
 
 import UIKit
 
-class HeroesListRouter: PresenterToRouterHeroesListProtocol {
+// MARK: Router Input (Presenter -> Router)
+protocol HeroesListRouter: class {
+    
+    static func createModule() -> UINavigationController
+    func pushToHeroDetail(on view: HeroesListView, with id: Int)
+}
+
+class DefaultHeroesListRouter: HeroesListRouter {
 
     static func createModule() -> UINavigationController {
         
         let viewController = HeroesListViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         
-        let presenter:  ViewToPresenterHeroesListProtocol &
-                        InteractorToPresenterHeroesListProtocol = HeroesListPresenter()
+        let presenter:  HeroesListPresenter &
+                        HeroesListInteractorOutput = DefaultHeroesListPresenter()
         
         viewController.presenter = presenter
-        viewController.presenter?.router = HeroesListRouter()
+        viewController.presenter?.router = DefaultHeroesListRouter()
         viewController.presenter?.view = viewController
         viewController.presenter?.interactor = HeroesListInteractor()
         viewController.presenter?.interactor?.presenter = presenter
@@ -26,15 +33,9 @@ class HeroesListRouter: PresenterToRouterHeroesListProtocol {
         return navigationController
     }
     
-    func pushToHeroDetail(on view: PresenterToViewHeroesListProtocol, with id: Int) {
+    func pushToHeroDetail(on view: HeroesListView, with id: Int) {
 
         // TODO: HeroDetail Module
-
-//        let heroDetailViewController = HeroDetailRouter.createModule(with: id)
-
-//        let viewController = view as! HeroesListViewController
-//        viewController.navigationController?
-//            .pushViewController(heroDetailViewController, animated: true)
         
     }
     
