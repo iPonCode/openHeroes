@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var appRouter: AppRouter?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -20,8 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = DefaultHeroesListRouter.createModule()
-            self.window = window
+            
+            // TODO: SetupAppearance
+            appRouter = AppRouter(window: window)
+            appRouter?.installViewIntoRootViewController()
+            
+            window.backgroundColor = UIColor.white
             window.makeKeyAndVisible()
         }
 

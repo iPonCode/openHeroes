@@ -10,16 +10,15 @@ import UIKit
 // MARK: Router Input (Presenter -> Router)
 protocol HeroesListRouter: class {
     
-    static func createModule() -> UINavigationController
+    static func createModule() -> UIViewController
     func pushToHeroDetail(on view: HeroesListView, with id: Int)
 }
 
 class DefaultHeroesListRouter: HeroesListRouter {
 
-    static func createModule() -> UINavigationController {
+    static func createModule() -> UIViewController {
         
         let viewController = HeroesListViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
         
         let presenter:  HeroesListPresenter &
                         HeroesListInteractorOutput = DefaultHeroesListPresenter()
@@ -30,7 +29,7 @@ class DefaultHeroesListRouter: HeroesListRouter {
         viewController.presenter?.interactor = HeroesListInteractor()
         viewController.presenter?.interactor?.presenter = presenter
         
-        return navigationController
+        return viewController
     }
     
     func pushToHeroDetail(on view: HeroesListView, with id: Int) {
