@@ -12,48 +12,63 @@ protocol HeroesListInteractorInput: class {
     
     var presenter: HeroesListInteractorOutput? { get set }
     
-    func loadHeroesList()
+    func loadHeroesList(completion complete: @escaping (HeroesListInteractorResult) -> Void)
     func retrieveHero(at index: Int)
 }
 
 // MARK: (Interactor -> Presenter)
 protocol HeroesListInteractorOutput: class {
     
-    func fetchHeroesListSuccess(heroes: [CharacterListItemDTO])
-    func fetchHeroesListFailure(errorResponse: ErrorResponse)
+    func fetchHeroesListSuccess(heroes: [MarvelCharacterListItemDTO]) // TODO Interactor Model instead DTO
+    func fetchHeroesListFailure(error: String)
     
-    func getHeroSuccess(_ hero: CharacterListItemDTO)
+    func getHeroSuccess(_ hero: MarvelCharacterListItemDTO)
     func getHeroFailure()
     
 }
+
+enum HeroesListInteractorError: Error {
+    case nilData
+    case networkError(Error)
+}
+
+typealias HeroesListInteractorResult = Result<[CharacterEntity], HeroesListInteractorError>
 
 class HeroesListInteractor: HeroesListInteractorInput {
 
     // MARK: Properties
     weak var presenter: HeroesListInteractorOutput?
-    var heroes: [CharacterListItemDTO]?
+    let dataManager: MarvelDataManager
     
-    func loadHeroesList() {
-        
-        // TODO: REQUEST WEB SERVICE
-        
-            // SUCCESS
-//            self.heroes = characters
-//            self.presenter?.fetchHeroesListSuccess(heroes: characters)
-        
-            // FAILURE
-            let errorObject = ErrorResponse(code: "000", message: "Generic Error")
-            self.presenter?.fetchHeroesListFailure(errorResponse: errorObject)
+    init(dataManager: MarvelDataManager) {
+        self.dataManager = dataManager
+    }
+    
+    func loadHeroesList(completion complete: @escaping (HeroesListInteractorResult) -> Void) {
+    
+        dataManager.load() { result in
+            
+            switch result {
+            
+            case .success(let dto):
+                
+                guard let data = dto.data else {
+                    complete(.failure(.nilData))
+                    return
+                }
+                complete(.success(data.results.compactMap({ CharacterEntity($0) })))
+                
+            
+            case .failure(let error):
+                complete(.failure(.networkError(error)))
+            }
         }
+
+    }
 
     func retrieveHero(at index: Int) {
         
-        guard let heroes = self.heroes,
-              heroes.indices.contains(index) else {
-            self.presenter?.getHeroFailure()
-            return
-        }
-        self.presenter?.getHeroSuccess(self.heroes![index])
+        // TODO: RETRIEVE A HERO
     }
 
 }

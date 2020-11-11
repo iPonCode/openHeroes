@@ -16,7 +16,7 @@ final class AppConfiguration {
         return url
     }()
 
-    lazy var apiKey: String = {
+    lazy var apiPublicKey: String = {
         guard let key = Bundle.main.object(forInfoDictionaryKey: "ApiPublicKey") as? String else {
             fatalError("ApiPublicKey not found")
         }

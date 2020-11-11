@@ -23,10 +23,17 @@ class DefaultHeroesListRouter: HeroesListRouter {
         let presenter:  HeroesListPresenter &
                         HeroesListInteractorOutput = DefaultHeroesListPresenter()
         
+        // TODO: Create repository and inject dataManager from AppDelegate
+        let appConfiguration = AppConfiguration()
+        let url = ApiConfig.getCharactersListUrl(config: appConfiguration)
+        let webService = DefaultWebService()
+        let service = DefaultMarvelService(webService: webService, loadUrlString: url)
+        let dataManager = DefaultMarvelDataManager(service: service)
+
         viewController.presenter = presenter
         viewController.presenter?.router = DefaultHeroesListRouter()
         viewController.presenter?.view = viewController
-        viewController.presenter?.interactor = HeroesListInteractor()
+        viewController.presenter?.interactor = HeroesListInteractor(dataManager: dataManager)
         viewController.presenter?.interactor?.presenter = presenter
         
         return viewController

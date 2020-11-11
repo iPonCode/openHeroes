@@ -13,12 +13,12 @@ protocol HeroesListPresenter: class {
     var view: HeroesListView? { get set }
     var interactor: HeroesListInteractorInput? { get set }
     var router: HeroesListRouter? { get set }
-    var heroesList: [CharacterListItemDTO]? { get set }
+    var heroesList: [MarvelCharacterListItemDTO]? { get set }
     
     func viewDidLoad()
     func refresh()
     func numberOfRowsInSection() -> Int
-    func getCellInfo(indexPath: IndexPath) -> CharacterListItemDTO?
+    func getCellInfo(indexPath: IndexPath) -> MarvelCharacterListItemDTO?
     func didSelectRowAt(index: Int)
     func deselectRowAt(index: Int)
 
@@ -29,16 +29,26 @@ class DefaultHeroesListPresenter: HeroesListPresenter {
     weak var view: HeroesListView?
     var interactor: HeroesListInteractorInput?
     var router: HeroesListRouter?
-    var heroesList: [CharacterListItemDTO]?
+    var heroesList: [MarvelCharacterListItemDTO]?
 
     // MARK: Inputs from view
     func viewDidLoad() {
         view?.showProgress()
-        interactor?.loadHeroesList()
+        interactor?.loadHeroesList() { result in
+            
+        switch result {
+        
+            case .success(let chartys):
+                NSLog("This is the HeroList in presenter: \(chartys)")
+
+            case .failure(let error):
+                NSLog("Something wrong in presenter: \(error)")
+            }
+        }
     }
     
     func refresh() {
-        interactor?.loadHeroesList()
+//        interactor?.loadHeroesList()
     }
     
     func numberOfRowsInSection() -> Int {
@@ -49,7 +59,7 @@ class DefaultHeroesListPresenter: HeroesListPresenter {
         return heroesList.count
     }
     
-    func getCellInfo(indexPath: IndexPath) -> CharacterListItemDTO? {
+    func getCellInfo(indexPath: IndexPath) -> MarvelCharacterListItemDTO? {
 
         guard let heroesList = self.heroesList else {
             return nil
@@ -71,20 +81,20 @@ class DefaultHeroesListPresenter: HeroesListPresenter {
 // MARK: - Outputs to view
 extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
 
-    func fetchHeroesListSuccess(heroes: [CharacterListItemDTO]) {
+    func fetchHeroesListSuccess(heroes: [MarvelCharacterListItemDTO]) {
 
         self.heroesList = heroes
         view?.hideProgress()
         view?.onFetchHeroesListSuccess()
     }
     
-    func fetchHeroesListFailure(errorResponse: ErrorResponse) {
+    func fetchHeroesListFailure(error: String) {
 
         view?.hideProgress()
-        view?.onFetchHeroesListFailure(error: "Couldn't fetch Heroes List. Error: \(errorResponse.message) (code: \(errorResponse.code))")
+        view?.onFetchHeroesListFailure(error: "Couldn't fetch Heroes List. Error: \(error)")
     }
     
-    func getHeroSuccess(_ hero: CharacterListItemDTO) {
+    func getHeroSuccess(_ hero: MarvelCharacterListItemDTO) {
         router?.pushToHeroDetail(on: view!, with: hero.id)
     }
     
