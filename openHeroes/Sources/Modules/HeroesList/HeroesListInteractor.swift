@@ -19,7 +19,7 @@ protocol HeroesListInteractorInput: class {
 // MARK: (Interactor -> Presenter)
 protocol HeroesListInteractorOutput: class {
     
-    func fetchHeroesListSuccess(heroes: [MarvelCharacterListItemDTO]) // TODO Interactor Model instead DTO
+    func fetchHeroesListSuccess(heroes: [CharacterEntity])
     func fetchHeroesListFailure(error: String)
     
     func getHeroSuccess(_ hero: MarvelCharacterListItemDTO)
@@ -68,7 +68,7 @@ class HeroesListInteractor: HeroesListInteractorInput {
 
     func retrieveHero(at index: Int) {
         
-        // TODO: RETRIEVE A HERO
+        // TODO: Retrieve a hero
     }
 
 }

@@ -17,13 +17,15 @@ enum WebServiceError: Error {
 
 protocol WebService {
     
-    func getData<T>(urlString: String, completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable
+    func getData<T>(urlString: String,
+                    completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable
 }
 
 
 class DefaultWebService: WebService {
 
-    func getData<T>(urlString: String, completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable {
+    func getData<T>(urlString: String,
+                    completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable {
 
         guard let url = URL(string: urlString) else {
             complete(.failure(.invalidUrl))

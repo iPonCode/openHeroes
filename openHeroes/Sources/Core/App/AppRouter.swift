@@ -11,7 +11,14 @@ class AppRouter {
     
     let window: UIWindow
     
-    lazy var appConfiguration = AppConfiguration()
+    lazy var apiConfiguration = DefaultMarvelApiConfig()
+    
+    lazy var dataManager: MarvelDataManager = {
+        let webService = DefaultWebService()
+        let service = DefaultMarvelService(webService: webService,
+                                           loadUrlString: apiConfiguration.getCharactersListUrl())
+        return DefaultMarvelDataManager(service: service)
+    }()
 
     init(window: UIWindow) {
         self.window = window
@@ -19,11 +26,10 @@ class AppRouter {
 
     func installViewIntoRootViewController() {
 
-        // TODO create repository with appConfiguration
-        
-        let viewController = DefaultHeroesListRouter.createModule()
+        let viewController = DefaultHeroesListRouter.createModule(dataManager: dataManager)
         let nav = UINavigationController(rootViewController: viewController)
         window.rootViewController = nav
     }
+    
     
 }

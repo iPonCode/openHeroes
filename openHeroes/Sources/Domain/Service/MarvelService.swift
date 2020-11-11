@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MarvelService {
+    
     func load(completion complete: @escaping (MarvelServiceResult) -> Void)
 }
 
@@ -21,6 +22,7 @@ enum ServiceError: Error {
 typealias MarvelServiceResult = Result<MarvelNetworkResponseDTO, ServiceError>
 
 class DefaultMarvelService: MarvelService {
+    
     let webService: WebService
     let loadUrlString: String
 
@@ -50,4 +52,5 @@ class DefaultMarvelService: MarvelService {
             }
         }
     }
+    
 }

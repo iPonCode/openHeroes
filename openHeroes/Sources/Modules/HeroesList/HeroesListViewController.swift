@@ -24,7 +24,6 @@ class HeroesListViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() // TODO: Cell design
-        //tableView.backgroundColor = .systemIndigo
         tableView.rowHeight = 120
         tableView.dataSource = self
         tableView.delegate = self
@@ -53,7 +52,7 @@ class HeroesListViewController: UIViewController {
 }
 
 // MARK: (Presenter -> View)
-extension HeroesListViewController: HeroesListView{
+extension HeroesListViewController: HeroesListView {
     
     func onFetchHeroesListSuccess() {
 

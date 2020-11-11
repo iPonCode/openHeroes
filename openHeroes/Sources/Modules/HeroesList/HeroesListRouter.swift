@@ -10,33 +10,25 @@ import UIKit
 // MARK: Router Input (Presenter -> Router)
 protocol HeroesListRouter: class {
     
-    static func createModule() -> UIViewController
-    func pushToHeroDetail(on view: HeroesListView, with id: Int)
+        func pushToHeroDetail(on view: HeroesListView, with id: Int)
 }
 
 class DefaultHeroesListRouter: HeroesListRouter {
 
-    static func createModule() -> UIViewController {
+    static func createModule(dataManager: MarvelDataManager) -> UIViewController {
         
-        let viewController = HeroesListViewController()
+        let view = HeroesListViewController()
         
         let presenter:  HeroesListPresenter &
                         HeroesListInteractorOutput = DefaultHeroesListPresenter()
         
-        // TODO: Create repository and inject dataManager from AppDelegate
-        let appConfiguration = AppConfiguration()
-        let url = ApiConfig.getCharactersListUrl(config: appConfiguration)
-        let webService = DefaultWebService()
-        let service = DefaultMarvelService(webService: webService, loadUrlString: url)
-        let dataManager = DefaultMarvelDataManager(service: service)
-
-        viewController.presenter = presenter
-        viewController.presenter?.router = DefaultHeroesListRouter()
-        viewController.presenter?.view = viewController
-        viewController.presenter?.interactor = HeroesListInteractor(dataManager: dataManager)
-        viewController.presenter?.interactor?.presenter = presenter
+        view.presenter = presenter
+        view.presenter?.router = DefaultHeroesListRouter()
+        view.presenter?.view = view
+        view.presenter?.interactor = HeroesListInteractor(dataManager: dataManager)
+        view.presenter?.interactor?.presenter = presenter
         
-        return viewController
+        return view
     }
     
     func pushToHeroDetail(on view: HeroesListView, with id: Int) {

@@ -19,8 +19,9 @@ protocol MarvelDataManager: class {
 }
 
 class DefaultMarvelDataManager: MarvelDataManager {
+
     let service: MarvelService
-    //let storage: MarvelStorage // TODO Storage
+    // TODO: Storage
 
     init(service: MarvelService) {
         self.service = service
@@ -28,7 +29,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
 
     func load(completion complete: @escaping (MarvelDataManagerResult) -> Void) {
     
-        //if let stored = storage.load() { // TODO Check storage before service
+       // TODO: Check storage before service
     
         service.load { result in
             
@@ -39,7 +40,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
                 
             case .success(let response):
                 
-                //self?.storage.save // TODO Save in storage if necessary (weak self)
+                // TODO: Save in storage if necessary
                 complete(.success(response))
             }
             
