@@ -26,8 +26,8 @@
 		D0E1654B255B39BA00895EAA /* MarvelCharacterListItemDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1654A255B39BA00895EAA /* MarvelCharacterListItemDTO.swift */; };
 		D0E16553255B3A7200895EAA /* MarvelCharacterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E16552255B3A7200895EAA /* MarvelCharacterDTO.swift */; };
 		D0E1657C255B431F00895EAA /* String+MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1657B255B431F00895EAA /* String+MD5.swift */; };
-		D0E1658C255B7AEC00895EAA /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1658B255B7AEC00895EAA /* WebService.swift */; };
-		D0E165CA255BA6C800895EAA /* MarvelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E165C9255BA6C800895EAA /* MarvelService.swift */; };
+		D0E1658C255B7AEC00895EAA /* NetworkWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E1658B255B7AEC00895EAA /* NetworkWorker.swift */; };
+		D0E165CA255BA6C800895EAA /* MarvelDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E165C9255BA6C800895EAA /* MarvelDataSource.swift */; };
 		D0E165E1255BBED800895EAA /* MarvelDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E165E0255BBED800895EAA /* MarvelDataManager.swift */; };
 		D0E165E7255BD05600895EAA /* CharacterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E165E6255BD05600895EAA /* CharacterEntity.swift */; };
 		D0E165EF255BD2EC00895EAA /* ComicEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E165EE255BD2EC00895EAA /* ComicEntity.swift */; };
@@ -85,8 +85,8 @@
 		D0E1654A255B39BA00895EAA /* MarvelCharacterListItemDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterListItemDTO.swift; sourceTree = "<group>"; };
 		D0E16552255B3A7200895EAA /* MarvelCharacterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelCharacterDTO.swift; sourceTree = "<group>"; };
 		D0E1657B255B431F00895EAA /* String+MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+MD5.swift"; sourceTree = "<group>"; };
-		D0E1658B255B7AEC00895EAA /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
-		D0E165C9255BA6C800895EAA /* MarvelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelService.swift; sourceTree = "<group>"; };
+		D0E1658B255B7AEC00895EAA /* NetworkWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkWorker.swift; sourceTree = "<group>"; };
+		D0E165C9255BA6C800895EAA /* MarvelDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelDataSource.swift; sourceTree = "<group>"; };
 		D0E165E0255BBED800895EAA /* MarvelDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelDataManager.swift; sourceTree = "<group>"; };
 		D0E165E6255BD05600895EAA /* CharacterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEntity.swift; sourceTree = "<group>"; };
 		D0E165EE255BD2EC00895EAA /* ComicEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicEntity.swift; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E165DF255BBEA100895EAA /* DataManager */,
-				D0E165C5255BA5C000895EAA /* Service */,
+				D0E165C5255BA5C000895EAA /* DataSource */,
 				D0E1653D255B38AE00895EAA /* Entities */,
 				D0F48DD2255C4D9800961C8D /* Interfaces */,
 			);
@@ -330,25 +330,25 @@
 		D0E16589255B7A6100895EAA /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				D0E1658A255B7A6F00895EAA /* Web */,
+				D0E1658A255B7A6F00895EAA /* Network */,
 			);
 			path = Service;
 			sourceTree = "<group>";
 		};
-		D0E1658A255B7A6F00895EAA /* Web */ = {
+		D0E1658A255B7A6F00895EAA /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				D0E1658B255B7AEC00895EAA /* WebService.swift */,
+				D0E1658B255B7AEC00895EAA /* NetworkWorker.swift */,
 			);
-			path = Web;
+			path = Network;
 			sourceTree = "<group>";
 		};
-		D0E165C5255BA5C000895EAA /* Service */ = {
+		D0E165C5255BA5C000895EAA /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				D0E165C9255BA6C800895EAA /* MarvelService.swift */,
+				D0E165C9255BA6C800895EAA /* MarvelDataSource.swift */,
 			);
-			path = Service;
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		D0E165DF255BBEA100895EAA /* DataManager */ = {
@@ -625,8 +625,8 @@
 				D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */,
 				D0E1654B255B39BA00895EAA /* MarvelCharacterListItemDTO.swift in Sources */,
 				D0E1657C255B431F00895EAA /* String+MD5.swift in Sources */,
-				D0E165CA255BA6C800895EAA /* MarvelService.swift in Sources */,
-				D0E1658C255B7AEC00895EAA /* WebService.swift in Sources */,
+				D0E165CA255BA6C800895EAA /* MarvelDataSource.swift in Sources */,
+				D0E1658C255B7AEC00895EAA /* NetworkWorker.swift in Sources */,
 				D0E16553255B3A7200895EAA /* MarvelCharacterDTO.swift in Sources */,
 				D086996B255902D60018A8C8 /* SceneDelegate.swift in Sources */,
 				D086982A255899290018A8C8 /* HeroesListViewController.swift in Sources */,

@@ -56,7 +56,6 @@ final class DefaultMarvelApiConfig: ApiConfiguration {
     }
     
     private func getTimeStamp() -> String {
-        // returns allways a different time stamp
         return String(format:"%.f", Date().timeIntervalSince1970)
     }
     

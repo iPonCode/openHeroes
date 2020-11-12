@@ -10,18 +10,11 @@ import UIKit
 class AppRouter {
     
     let window: UIWindow
+    let dataManager: MarvelDataManager
     
-    lazy var apiConfiguration = DefaultMarvelApiConfig()
-    
-    lazy var dataManager: MarvelDataManager = {
-        let webService = DefaultWebService()
-        let service = DefaultMarvelService(webService: webService,
-                                           loadUrlString: apiConfiguration.getCharactersListUrl())
-        return DefaultMarvelDataManager(service: service)
-    }()
-
-    init(window: UIWindow) {
+    init(window: UIWindow, dataManager: MarvelDataManager) {
         self.window = window
+        self.dataManager = dataManager
     }
 
     func installViewIntoRootViewController() {

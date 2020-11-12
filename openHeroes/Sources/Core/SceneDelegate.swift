@@ -12,10 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var appRouter: AppRouter?
 
+    lazy var apiConfiguration = DefaultMarvelApiConfig()
+    
+    lazy var dataManager: MarvelDataManager = {
+        let networkWorker = DefaultNetworkWorker()
+        let remoteDataSource = RemoteMarvelDataSource(netWorkworker: networkWorker,
+                                                      apiConfiguration: apiConfiguration)
+        let localDataSource = LocalMarvelDataSource()
+        return DefaultMarvelDataManager(remote: remoteDataSource, local: localDataSource)
+    }()
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+
         guard let _ = (scene as? UIWindowScene) else { return }
         
         if let windowScene = scene as? UIWindowScene {
@@ -23,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             AppAppearance.setupAppearance()
 
-            appRouter = AppRouter(window: window)
+            appRouter = AppRouter(window: window, dataManager: dataManager)
             appRouter?.installViewIntoRootViewController()
             
             window.backgroundColor = UIColor.white

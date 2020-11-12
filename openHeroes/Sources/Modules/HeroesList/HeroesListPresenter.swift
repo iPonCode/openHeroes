@@ -49,7 +49,7 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
     }
     
     func numberOfRows(at section: Int) -> Int {
-        return section == 0 ? heroesList.count : 0
+        return heroesList.count
     }
     
     func numberOfSections() -> Int {

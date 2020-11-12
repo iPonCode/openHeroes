@@ -16,7 +16,8 @@ protocol HeroesListRouter: Alertable {
 class DefaultHeroesListRouter: HeroesListRouter {
 
     var view: UIViewController?
-
+    var dataManager: MarvelDataManager?
+    
     static func createModule(dataManager: MarvelDataManager) -> UIViewController {
 
         let router = DefaultHeroesListRouter()
@@ -28,7 +29,8 @@ class DefaultHeroesListRouter: HeroesListRouter {
         
         view.presenter = presenter
         interactor.presenter = presenter
-        router.view = view // initialize viewController to push onto the nav stack
+        router.view = view
+        router.dataManager = dataManager
         
         return view
     }
@@ -37,10 +39,6 @@ class DefaultHeroesListRouter: HeroesListRouter {
 
         // TODO: HeroDetail Module
 
-//        let apiConfig = DefaultMarvelApiConfig()
-//        let dataManager = DefaultMarvelDataManager(service: DefaultMarvelService(
-//                                                webService: DefaultWebService(),
-//                                                loadUrlString: apiConfig.getDetailsUrl(hero.id)))
 //        let detailView = DefaultHeroDetailRouter.createModule(dataManager: dataManager)
 //        view?.navigationController?.pushViewController((detailView), animated: true)
         

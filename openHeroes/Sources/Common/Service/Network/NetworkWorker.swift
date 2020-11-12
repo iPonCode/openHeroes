@@ -1,4 +1,4 @@
-//  WebService.swift
+//  NetworkWorker.swift
 //  openHeroes
 //
 //  Created by Simón Aparicio on 11/11/2020.
@@ -8,24 +8,24 @@
 import Foundation
 import Alamofire
 
-enum WebServiceError: Error {
+enum NetworkWorkerError: Error {
     case invalidUrl
     case noData
     case networkError(Error)
     case jsonParseError(Error)
 }
 
-protocol WebService {
+protocol NetworkWorker {
     
     func getData<T>(urlString: String,
-                    completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable
+                    completion complete: @escaping (Result<T, NetworkWorkerError>) -> Void) where T: Codable
 }
 
 
-class DefaultWebService: WebService {
+class DefaultNetworkWorker: NetworkWorker {
 
     func getData<T>(urlString: String,
-                    completion complete: @escaping (Result<T, WebServiceError>) -> Void) where T: Codable {
+                    completion complete: @escaping (Result<T, NetworkWorkerError>) -> Void) where T: Codable {
 
         guard let url = URL(string: urlString) else {
             complete(.failure(.invalidUrl))

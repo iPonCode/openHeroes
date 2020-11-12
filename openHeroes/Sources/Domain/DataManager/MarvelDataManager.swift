@@ -12,26 +12,45 @@ enum MarvelDataManagerError: Error {
 }
 
 typealias MarvelDataManagerResult = Result<MarvelNetworkResponseDTO, MarvelDataManagerError>
+typealias LocalStorageDataSource = MarvelDataSource & SaveLocalDataSource
 
 protocol MarvelDataManager {
 
-    func load(completion complete: @escaping (MarvelDataManagerResult) -> Void)
+    func loadHeroesList(completion complete: @escaping (MarvelDataManagerResult) -> Void)
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataManagerResult) -> Void)
 }
 
 class DefaultMarvelDataManager: MarvelDataManager {
 
-    let service: MarvelService
+    let remote: MarvelDataSource
+    let local: LocalStorageDataSource
     // TODO: Storage
 
-    init(service: MarvelService) {
-        self.service = service
+    init(remote: MarvelDataSource, local: LocalStorageDataSource) {
+        self.remote = remote
+        self.local = local
     }
 
-    func load(completion complete: @escaping (MarvelDataManagerResult) -> Void) {
+    func loadHeroesList(completion complete: @escaping (MarvelDataManagerResult) -> Void) {
     
        // TODO: Check storage before service
     
-        service.load { result in
+        local.loadHeroesList { result in
+            
+            switch result {
+            
+            case .failure(_):
+                complete(.failure(.loadError))
+                
+            case .success(let response):
+                
+                // TODO: Save in storage if necessary
+                complete(.success(response))
+            }
+            
+        }
+        
+        remote.loadHeroesList { result in
             
             switch result {
             
@@ -47,4 +66,8 @@ class DefaultMarvelDataManager: MarvelDataManager {
         }
     }
 
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataManagerResult) -> Void) {
+        // TODO
+    }
+    
 }

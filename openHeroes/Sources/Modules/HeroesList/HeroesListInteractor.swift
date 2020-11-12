@@ -34,7 +34,7 @@ class HeroesListInteractor: HeroesListInteractorInput {
     
     func loadHeroesList() {
     
-        dataManager.load() { [weak self] result in
+        dataManager.loadHeroesList() { [weak self] result in
             
             switch result {
             
