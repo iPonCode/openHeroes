@@ -11,7 +11,6 @@ import Foundation
 protocol HeroesListInteractorInput {
     
     func loadHeroesList()
-    func retrieveHero(at index: Int)
 }
 
 // MARK: (Interactor -> Presenter)
@@ -52,11 +51,6 @@ class HeroesListInteractor: HeroesListInteractorInput {
             }
         }
 
-    }
-
-    func retrieveHero(at index: Int) {
-        
-        // TODO: Retrieve a hero
     }
 
 }

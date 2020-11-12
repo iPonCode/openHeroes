@@ -10,20 +10,27 @@ import UIKit
 // MARK: (Presenter -> View)
 protocol HeroesListView: AnyObject {
 
-    func deselectRowAt(row: Int)
-    
     func refreshView()
     func endRefreshingView()
 }
 
 class HeroesListViewController: UIViewController {
     
+    struct VisualConstants {
+        static let rowHeight: CGFloat = 32.0
+        private init() { }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Properties
     var presenter: HeroesListPresenter?
     
     lazy var tableView: UITableView = {
         let tableView = UITableView() // TODO: Cell design
-        tableView.rowHeight = 120
+        tableView.rowHeight = VisualConstants.rowHeight
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -38,14 +45,18 @@ class HeroesListViewController: UIViewController {
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
+
         super.viewDidLoad()
-        configureUI()
-        
         presenter?.viewDidLoad()
+        configureUI()
     }
     
     @objc func reload() {
         presenter?.viewDidLoad()
+    }
+    
+    func didTapOnCell(at indexPath: IndexPath) {
+        presenter?.didSelectRow(at: indexPath)
     }
 
 }
@@ -53,13 +64,9 @@ class HeroesListViewController: UIViewController {
 // MARK: (Presenter -> View)
 extension HeroesListViewController: HeroesListView {
 
-    func deselectRowAt(row: Int) {
-        self.tableView.deselectRow(at: IndexPath(row: row, section: 0), animated: true)
-    }
-    
     func refreshView() {
         tableView.reloadData()
-        refreshControl.endRefreshing()
+        endRefreshingView()
     }
     
     func endRefreshingView() {
@@ -74,20 +81,21 @@ extension HeroesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return presenter?.numberOfRowsInSection() ?? 0
+        return presenter?.numberOfRows(at: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
         cell.textLabel?.text = presenter?.getCellInfo(indexPath: indexPath)?.name
+        //presenter?.configure(cell: cell, indexPath: indexPath)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        presenter?.didSelectRowAt(index: indexPath.row)
-        presenter?.deselectRowAt(index: indexPath.row)
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        didTapOnCell(at: indexPath)
     }
 }
 

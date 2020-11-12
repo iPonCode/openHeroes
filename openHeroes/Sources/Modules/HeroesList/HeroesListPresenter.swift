@@ -11,10 +11,11 @@ import Foundation
 protocol HeroesListPresenter {
     
     func viewDidLoad()
-    func didSelectRowAt(index: Int)
-    func deselectRowAt(index: Int)
-    func numberOfRowsInSection() -> Int
-    func getCellInfo(indexPath: IndexPath) -> CharacterEntity?
+    func didSelectRow(at indexPath: IndexPath)
+    func numberOfRows(at section: Int) -> Int
+    func numberOfSections() -> Int
+    func getCellInfo(indexPath: IndexPath) -> CharacterEntity?  // TODO: Remove and use configure
+    //func configure(cell: HeroesListViewCell, indexPath: IndexPath) // TODO: Cell design
 
 }
 
@@ -39,28 +40,30 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
 
     // MARK: Inputs from view
     func viewDidLoad() {
-        
         interactor?.loadHeroesList()
     }
     
-    func numberOfRowsInSection() -> Int {
-
-        return heroesList.count
+    func didSelectRow(at indexPath: IndexPath) {
+        let item = heroesList[indexPath.row]
+        router.showHeroDetail(item)
+    }
+    
+    func numberOfRows(at section: Int) -> Int {
+        return section == 0 ? heroesList.count : 0
+    }
+    
+    func numberOfSections() -> Int {
+        return 1
     }
     
     func getCellInfo(indexPath: IndexPath) -> CharacterEntity? {
-
         return heroesList[indexPath.row]
     }
+    
+//    func configure(cell: HeroesListViewCell, indexPath: IndexPath) {
+//        cell.textLabel?.text = heroesList[indexPath.row].description
+//    }
 
-    func didSelectRowAt(index: Int) {
-        interactor?.retrieveHero(at: index)
-    }
-    
-    func deselectRowAt(index: Int) {
-        view?.deselectRowAt(row: index)
-    }
-    
 }
 
 
