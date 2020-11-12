@@ -8,13 +8,12 @@
 import UIKit
 
 // MARK: (Presenter -> View)
-protocol HeroesListView: class {
-    
-    func onFetchHeroesListSuccess()
-    func onFetchHeroesListFailure(error: String)
-    func showProgress()
-    func hideProgress()
+protocol HeroesListView: AnyObject {
+
     func deselectRowAt(row: Int)
+    
+    func refreshView()
+    func endRefreshingView()
 }
 
 class HeroesListViewController: UIViewController {
@@ -46,37 +45,25 @@ class HeroesListViewController: UIViewController {
     }
     
     @objc func reload() {
-        presenter?.refresh()
+        presenter?.viewDidLoad()
     }
 
 }
 
 // MARK: (Presenter -> View)
 extension HeroesListViewController: HeroesListView {
-    
-    func onFetchHeroesListSuccess() {
 
-        self.tableView.reloadData()
-        self.refreshControl.endRefreshing()
-    }
-    
-    func onFetchHeroesListFailure(error: String) {
-        
-        self.refreshControl.endRefreshing()
-    }
-    
-    func showProgress() {
-        
-        // TODO: Show progress in UI
-    }
-    
-    func hideProgress() {
-        
-        // TODO: Hide progress in UI
-    }
-    
     func deselectRowAt(row: Int) {
         self.tableView.deselectRow(at: IndexPath(row: row, section: 0), animated: true)
+    }
+    
+    func refreshView() {
+        tableView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func endRefreshingView() {
+        refreshControl.endRefreshing()
     }
     
 }

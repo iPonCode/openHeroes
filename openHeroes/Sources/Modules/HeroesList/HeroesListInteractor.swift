@@ -8,35 +8,24 @@
 import Foundation
 
 // MARK: (Presenter -> Interactor)
-protocol HeroesListInteractorInput: class {
+protocol HeroesListInteractorInput {
     
-    var presenter: HeroesListInteractorOutput? { get set }
-    
-    func loadHeroesList(completion complete: @escaping (HeroesListInteractorResult) -> Void)
+    func loadHeroesList()
     func retrieveHero(at index: Int)
 }
 
 // MARK: (Interactor -> Presenter)
-protocol HeroesListInteractorOutput: class {
+protocol HeroesListInteractorOutput: AnyObject {
     
-    func fetchHeroesListSuccess(heroes: [CharacterEntity])
-    func fetchHeroesListFailure(error: String)
-    
-    func getHeroSuccess(_ hero: MarvelCharacterListItemDTO)
+    func getHeroSuccess(_ hero: CharacterEntity)
     func getHeroFailure()
     
+    func updateView(list: [CharacterEntity])
+    func showError(_ message: String?, title: String?)
 }
-
-enum HeroesListInteractorError: Error {
-    case nilData
-    case networkError(Error)
-}
-
-typealias HeroesListInteractorResult = Result<[CharacterEntity], HeroesListInteractorError>
 
 class HeroesListInteractor: HeroesListInteractorInput {
 
-    // MARK: Properties
     weak var presenter: HeroesListInteractorOutput?
     let dataManager: MarvelDataManager
     
@@ -44,23 +33,22 @@ class HeroesListInteractor: HeroesListInteractorInput {
         self.dataManager = dataManager
     }
     
-    func loadHeroesList(completion complete: @escaping (HeroesListInteractorResult) -> Void) {
+    func loadHeroesList() {
     
-        dataManager.load() { result in
+        dataManager.load() { [weak self] result in
             
             switch result {
             
             case .success(let dto):
                 
                 guard let data = dto.data else {
-                    complete(.failure(.nilData))
+                    self?.showError("Nil data was found", title: "No Data")
                     return
                 }
-                complete(.success(data.results.compactMap({ CharacterEntity($0) })))
+                self?.manageResponse(resp: data.results)
                 
-            
             case .failure(let error):
-                complete(.failure(.networkError(error)))
+                self?.showError("\(error)", title: "Network Error")
             }
         }
 
@@ -73,3 +61,18 @@ class HeroesListInteractor: HeroesListInteractorInput {
 
 }
 
+private extension HeroesListInteractor {
+    
+    func manageResponse(resp: [MarvelCharacterListItemDTO]) {
+        
+        let processedList = resp.compactMap({ CharacterEntity($0) })
+        presenter?.updateView(list: processedList)
+    }
+    
+    func showError(_ message: String? = "There was an error",
+                   title: String? = "Generic Error") {
+        
+        presenter?.showError(message, title: title)
+    }
+    
+}

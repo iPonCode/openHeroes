@@ -8,64 +8,48 @@
 import Foundation
 
 // MARK: (View -> Presenter)
-protocol HeroesListPresenter: class {
-    
-    var view: HeroesListView? { get set }
-    var interactor: HeroesListInteractorInput? { get set }
-    var router: HeroesListRouter? { get set }
-    var heroesList: [CharacterEntity]? { get set }
+protocol HeroesListPresenter {
     
     func viewDidLoad()
-    func refresh()
-    func numberOfRowsInSection() -> Int
-    func getCellInfo(indexPath: IndexPath) -> CharacterEntity?
     func didSelectRowAt(index: Int)
     func deselectRowAt(index: Int)
+    func numberOfRowsInSection() -> Int
+    func getCellInfo(indexPath: IndexPath) -> CharacterEntity?
 
 }
 
-class DefaultHeroesListPresenter: HeroesListPresenter {
+class DefaultHeroesListPresenter {
     
-    weak var view: HeroesListView?
+    private weak var view: HeroesListView?
     var interactor: HeroesListInteractorInput?
-    var router: HeroesListRouter?
-    var heroesList: [CharacterEntity]?
+    private let router: HeroesListRouter
+    var heroesList: [CharacterEntity] = []
+    
+    init(interface: HeroesListView,
+         interactor: HeroesListInteractorInput?,
+         router: HeroesListRouter) {
+        
+        view = interface
+        self.interactor = interactor
+        self.router = router
+    }
+}
+
+extension DefaultHeroesListPresenter: HeroesListPresenter {
 
     // MARK: Inputs from view
     func viewDidLoad() {
         
-        view?.showProgress()
-        interactor?.loadHeroesList() { [weak self] result in
-            
-        switch result {
-        
-            case .success(let chartys):
-                debugPrint("This is the HeroList in presenter: \(chartys)")
-                self?.fetchHeroesListSuccess(heroes: chartys)
-
-            case .failure(let error):
-                debugPrint("Something wrong in presenter: \(error)")
-            }
-        }
-    }
-    
-    func refresh() {
-//        interactor?.loadHeroesList()
+        interactor?.loadHeroesList()
     }
     
     func numberOfRowsInSection() -> Int {
 
-        guard let heroesList = self.heroesList else {
-            return 0
-        }
         return heroesList.count
     }
     
     func getCellInfo(indexPath: IndexPath) -> CharacterEntity? {
 
-        guard let heroesList = self.heroesList else {
-            return nil
-        }
         return heroesList[indexPath.row]
     }
 
@@ -82,26 +66,25 @@ class DefaultHeroesListPresenter: HeroesListPresenter {
 
 // MARK: - Outputs to view
 extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
-
-    func fetchHeroesListSuccess(heroes: [CharacterEntity]) {
-
-        self.heroesList = heroes
-        view?.hideProgress()
-        view?.onFetchHeroesListSuccess()
-    }
     
-    func fetchHeroesListFailure(error: String) {
-
-        view?.hideProgress()
-        view?.onFetchHeroesListFailure(error: "Couldn't fetch Heroes List. Error: \(error)")
-    }
-    
-    func getHeroSuccess(_ hero: MarvelCharacterListItemDTO) {
-        router?.pushToHeroDetail(on: view!, with: hero.id)
+    func getHeroSuccess(_ hero: CharacterEntity) {
+        router.showHeroDetail(hero)
     }
     
     func getHeroFailure() {
-        view?.hideProgress()
+    }
+    
+    func showError(_ message: String?, title: String?) {
+        
+        view?.endRefreshingView()
+        router.showAlert(msg: message ?? "An error has ocurred",
+                         title: title ?? "Oops!")
+    }
+    
+    func updateView(list: [CharacterEntity]) {
+        
+        self.heroesList = list
+        view?.refreshView()
     }
 
 }

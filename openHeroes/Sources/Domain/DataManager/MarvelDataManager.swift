@@ -13,7 +13,7 @@ enum MarvelDataManagerError: Error {
 
 typealias MarvelDataManagerResult = Result<MarvelNetworkResponseDTO, MarvelDataManagerError>
 
-protocol MarvelDataManager: class {
+protocol MarvelDataManager {
 
     func load(completion complete: @escaping (MarvelDataManagerResult) -> Void)
 }

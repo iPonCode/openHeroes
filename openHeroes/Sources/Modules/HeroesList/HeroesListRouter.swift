@@ -8,33 +8,43 @@
 import UIKit
 
 // MARK: Router Input (Presenter -> Router)
-protocol HeroesListRouter: class {
+protocol HeroesListRouter: Alertable {
     
-        func pushToHeroDetail(on view: HeroesListView, with id: Int)
+    func showHeroDetail(_ hero: CharacterEntity)
 }
 
 class DefaultHeroesListRouter: HeroesListRouter {
 
+    var view: UIViewController?
+
     static func createModule(dataManager: MarvelDataManager) -> UIViewController {
-        
+
+        let router = DefaultHeroesListRouter()
         let view = HeroesListViewController()
-        
-        let presenter:  HeroesListPresenter &
-                        HeroesListInteractorOutput = DefaultHeroesListPresenter()
+        let interactor = HeroesListInteractor(dataManager: dataManager)
+        let presenter = DefaultHeroesListPresenter(interface: view,
+                                                   interactor: interactor,
+                                                   router: router)
         
         view.presenter = presenter
-        view.presenter?.router = DefaultHeroesListRouter()
-        view.presenter?.view = view
-        view.presenter?.interactor = HeroesListInteractor(dataManager: dataManager)
-        view.presenter?.interactor?.presenter = presenter
+        interactor.presenter = presenter
+        router.view = view // initialize viewController to push onto the nav stack
         
         return view
     }
     
-    func pushToHeroDetail(on view: HeroesListView, with id: Int) {
+    func showHeroDetail(_ hero: CharacterEntity) {
 
         // TODO: HeroDetail Module
+
+//        let apiConfig = DefaultMarvelApiConfig()
+//        let dataManager = DefaultMarvelDataManager(service: DefaultMarvelService(
+//                                                webService: DefaultWebService(),
+//                                                loadUrlString: apiConfig.getDetailsUrl(hero.id)))
+//        let detailView = DefaultHeroDetailRouter.createModule(dataManager: dataManager)
+//        view?.navigationController?.pushViewController((detailView), animated: true)
         
     }
     
 }
+
