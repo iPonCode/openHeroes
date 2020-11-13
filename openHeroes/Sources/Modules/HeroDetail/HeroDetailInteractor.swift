@@ -51,7 +51,7 @@ class HeroDetailInteractor: HeroDetailInteractorInput {
                 switch error {
                 case .loadError(let error):
                     debugPrint("Error description: %@", error)
-                    weakSelf.showError("Downloaded data locally stored (id:\(weakSelf.id)) for next time", title: "Firt time load Detail for this id", showInUI: true)
+                    weakSelf.showError("Downloaded data locally stored (id:\(weakSelf.id)) for next time", title: "First time load Detail for this id", showInUI: true)
                 }
             }
         }

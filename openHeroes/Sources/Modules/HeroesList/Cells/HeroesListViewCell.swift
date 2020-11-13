@@ -14,7 +14,7 @@ class HeroesListViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        contentView.backgroundColor = AppAppearance.Color.backgroundCell
+        contentView.backgroundColor = UIColor.OpenHeroes.backgroundCell
     }
 
     override func prepareForReuse() {
@@ -24,8 +24,8 @@ class HeroesListViewCell: UITableViewCell {
     func configure(with item: CharacterListEntity) {
         let name = item.name ?? "unknown"
         title.attributedText = NSAttributedString(string: "\(name) - (\(item.id))",
-                                                  attributes: [.font: AppAppearance.Font.bodyHightlighted,
-                                                               .foregroundColor: AppAppearance.Color.highlighted])
+                                                  attributes: [.font: UIFont.OpenHeroes.bodyHightlighted,
+                                                               .foregroundColor: UIColor.OpenHeroes.highlighted])
     }
 
 }

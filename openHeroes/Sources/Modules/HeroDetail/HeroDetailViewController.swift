@@ -23,10 +23,10 @@ class HeroDetailViewController: UIViewController {
     
     lazy var rawDataText: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = AppAppearance.Color.backgroundCell
+        textView.backgroundColor = UIColor.OpenHeroes.backgroundCell
         textView.attributedText = NSAttributedString(string: "Loading (placeholder) …",
-                                                     attributes: [.font: AppAppearance.Font.bodyText,
-                                                                  .foregroundColor: AppAppearance.Color.bodyText])
+                                                     attributes: [.font: UIFont.OpenHeroes.bodyText,
+                                                                  .foregroundColor: UIColor.OpenHeroes.bodyText])
         textView.textAlignment = .center
         textView.isEditable = false
         textView.isSelectable = true
@@ -62,7 +62,7 @@ extension HeroDetailViewController: HeroDetailView {
 extension HeroDetailViewController {
     
     func configureUI() {
-        view.backgroundColor = AppAppearance.Color.backgroundTable
+        view.backgroundColor = UIColor.OpenHeroes.backgroundTable
         self.view.addSubview(rawDataText)
 
         rawDataText.translatesAutoresizingMaskIntoConstraints = false

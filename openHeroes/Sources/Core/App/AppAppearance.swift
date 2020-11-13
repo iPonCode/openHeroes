@@ -13,120 +13,25 @@ final class AppAppearance {
         
         let appearance = UINavigationBarAppearance()
         
-        // Fonts and Colors for navigationbar titles
+        // Navigationbar titles
         appearance.largeTitleTextAttributes = [
-            .font: AppAppearance.Font.largeTitle,
-            .foregroundColor: AppAppearance.Color.barTitles]
+            .font: UIFont.OpenHeroes.largeTitle,
+            .foregroundColor: UIColor.OpenHeroes.barTitles]
         appearance.titleTextAttributes = [
-            .font: AppAppearance.Font.compactTitle,
-            .foregroundColor: AppAppearance.Color.barTitles]
+            .font: UIFont.OpenHeroes.compactTitle,
+            .foregroundColor: UIColor.OpenHeroes.barTitles]
+        appearance.configureWithTransparentBackground()
 
         // BackButton
         appearance.setBackIndicatorImage(
-            UIImage(systemName: AppAppearance.Icon.barBack), transitionMaskImage:
-            UIImage(systemName: AppAppearance.Icon.barBackTrans))
+            UIImage(systemName: SFSymbol.OpenHeroes.barBack), transitionMaskImage:
+            UIImage(systemName: SFSymbol.OpenHeroes.barBackTrans))
         appearance.backButtonAppearance.normal.titleTextAttributes = [
-            .foregroundColor: AppAppearance.Color.barButton]
-
-        // Transparency
-        appearance.configureWithTransparentBackground()
+            .foregroundColor: UIColor.OpenHeroes.barButton]
 
         // Apply appearance
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-
     }
-    
-    struct Color {
-        
-        static let highlighted = UIColor(named: "highlighted")!
-        static let barButton = UIColor(named: "barButton")!
-        static let barBackButton = UIColor(named: "barBackButton")!
-        static let barTitles = UIColor(named: "barButton")!
-        static let backgroundCell = UIColor.systemBackground
-        static let backgroundTable = UIColor.systemBackground
-        static let bodyText = UIColor.secondaryLabel
-
-        private init() {}
-    }
-
-    struct Font {
-        
-        static var largeTitle: UIFont {
-            get {
-                let fontSize = UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-                if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: .black)
-                    .fontDescriptor.withDesign(.rounded) {
-                    return UIFont(descriptor: descriptor, size: fontSize)
-
-                } else {
-                    return UIFont.preferredFont(forTextStyle: .largeTitle)
-                }
-            }
-        }
-        
-        static var compactTitle: UIFont {
-            get {
-                let fontSize = UIFont.preferredFont(forTextStyle: .title1).pointSize
-                if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: .heavy)
-                    .fontDescriptor.withDesign(.rounded) {
-                    return UIFont(descriptor: descriptor, size: fontSize)
-
-                } else {
-                    return UIFont.preferredFont(forTextStyle: .title1)
-                }
-            }
-        }
-
-        static var barButton: UIFont {
-            get {
-                let fontSize = UIFont.preferredFont(forTextStyle: .title3).pointSize
-                if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: .bold)
-                    .fontDescriptor.withDesign(.rounded) {
-                    return UIFont(descriptor: descriptor, size: fontSize)
-
-                } else {
-                    return UIFont.preferredFont(forTextStyle: .headline)
-                }
-            }
-        }
-        
-        static var bodyText: UIFont {
-            get {
-                let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-                if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-                    .fontDescriptor.withDesign(.rounded) {
-                    return UIFont(descriptor: descriptor, size: fontSize)
-
-                } else {
-                    return UIFont.preferredFont(forTextStyle: .body)
-                }
-            }
-        }
-        
-        static var bodyHightlighted: UIFont {
-            get {
-                let fontSize = UIFont.preferredFont(forTextStyle: .subheadline).pointSize
-                if let descriptor = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-                    .fontDescriptor.withDesign(.rounded) {
-                    return UIFont(descriptor: descriptor, size: fontSize)
-
-                } else {
-                    return UIFont.preferredFont(forTextStyle: .subheadline)
-                }
-            }
-        }
-        
-        private init() {}
-    }
-
-    struct Icon {
-        
-        static let barBack = "rectangle.grid.1x2.fill"
-        static let barBackTrans = "rectangle.grid.1x2"
-
-        private init() {}
-    }
-
 }
