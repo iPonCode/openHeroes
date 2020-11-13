@@ -36,17 +36,13 @@ class HeroDetailInteractor: HeroDetailInteractorInput {
         dataManager.loadHeroDetail(id: id) { [weak self] result in
             
             guard let weakSelf = self else { return }
-            
             switch result {
-            
             case .success(let dto):
-                
                 guard let data = dto.data else {
                     weakSelf.showError("Nil data was found", title: "No Data", showInUI: true)
                     return
                 }
                 weakSelf.manageResponse(resp: data.results)
-                
             case .failure(let error):
                 switch error {
                 case .loadError(let error):
