@@ -102,7 +102,7 @@ extension HeroesListViewController {
         
         tableView.register(UINib(nibName: HeroesListViewCell.identifier, bundle: nil),
                            forCellReuseIdentifier: HeroesListViewCell.identifier)
-        tableView.backgroundColor = AppAppearance.Color.backgroundTable
+        tableView.backgroundColor = UIColor.OpenHeroes.backgroundTable
         tableView.rowHeight = VisualConstants.rowHeight
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
