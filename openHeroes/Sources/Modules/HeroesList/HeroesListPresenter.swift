@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: (View -> Presenter)
 protocol HeroesListPresenter {
-    
     func viewDidLoad()
     func didSelectRow(at indexPath: IndexPath)
     func numberOfRows(at section: Int) -> Int
@@ -23,12 +22,11 @@ class DefaultHeroesListPresenter {
     private weak var view: HeroesListView?
     var interactor: HeroesListInteractorInput?
     private let router: HeroesListRouter
-    var heroesList: [CharacterEntity] = []
+    var heroesList: [CharacterListEntity] = []
     
     init(interface: HeroesListView,
          interactor: HeroesListInteractorInput?,
          router: HeroesListRouter) {
-        
         view = interface
         self.interactor = interactor
         self.router = router
@@ -62,16 +60,8 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
 
 }
 
-
 // MARK: - Outputs to view
 extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
-    
-    func getHeroSuccess(_ hero: CharacterEntity) {
-        router.showHeroDetail(hero)
-    }
-    
-    func getHeroFailure() {
-    }
     
     func showError(_ message: String?, title: String?) {
         
@@ -80,7 +70,7 @@ extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
                          title: title ?? "Oops!")
     }
     
-    func updateView(list: [CharacterEntity]) {
+    func updateView(list: [CharacterListEntity]) {
         
         self.heroesList = list
         view?.refreshView()

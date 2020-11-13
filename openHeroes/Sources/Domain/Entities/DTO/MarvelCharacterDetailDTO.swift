@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MarvelCharacterDTO: Codable {
+struct MarvelCharacterDetailDTO: Codable {
     let id: Int
     let name, resultDescription: String
     let thumbnail: ThumbnailDTO

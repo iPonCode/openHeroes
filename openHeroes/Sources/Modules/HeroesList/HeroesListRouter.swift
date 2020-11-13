@@ -9,8 +9,7 @@ import UIKit
 
 // MARK: Router Input (Presenter -> Router)
 protocol HeroesListRouter: Alertable {
-    
-    func showHeroDetail(_ hero: CharacterEntity)
+    func showHeroDetail(_ hero: CharacterListEntity)
 }
 
 class DefaultHeroesListRouter: HeroesListRouter {
@@ -35,13 +34,11 @@ class DefaultHeroesListRouter: HeroesListRouter {
         return view
     }
     
-    func showHeroDetail(_ hero: CharacterEntity) {
+    func showHeroDetail(_ hero: CharacterListEntity) {
 
-        // TODO: HeroDetail Module
-
-//        let detailView = DefaultHeroDetailRouter.createModule(dataManager: dataManager)
-//        view?.navigationController?.pushViewController((detailView), animated: true)
-        
+        guard let dataManager = dataManager else { return }
+        let detailView = DefaultHeroDetailRouter.createModule(with: hero.id, dataManager: dataManager)
+        view?.navigationController?.pushViewController((detailView), animated: true)
     }
     
 }

@@ -21,9 +21,11 @@ class HeroesListViewCell: UITableViewCell {
         super.prepareForReuse()
     }
 
-    func configure(with item: CharacterEntity) {
+    func configure(with item: CharacterListEntity) {
         let name = item.name ?? "unknown"
-        title.text = "\(name) - (\(item.id))"
+        title.attributedText = NSAttributedString(string: "\(name) - (\(item.id))",
+                                                  attributes: [.font: AppAppearance.Font.bodyHightlighted,
+                                                               .foregroundColor: AppAppearance.Color.highlighted])
     }
 
 }

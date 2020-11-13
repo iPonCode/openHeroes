@@ -1,4 +1,4 @@
-//  CharacterEntity.swift
+//  CharacterListEntity.swift
 //  openHeroes
 //
 //  Created by Simón Aparicio on 11/11/2020.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-
-struct CharacterEntity {
+struct CharacterListEntity {
     let id: Int
     let name: String?
     let comics: [ComicEntity]
@@ -19,7 +18,7 @@ struct CharacterEntity {
     var eventsCount: Int = 0
 }
 
-extension CharacterEntity {
+extension CharacterListEntity {
     init(_ dto: MarvelCharacterListItemDTO) {
         id = dto.id
         name = dto.name
