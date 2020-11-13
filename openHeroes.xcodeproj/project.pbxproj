@@ -23,6 +23,9 @@
 		D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698D52558E23C0018A8C8 /* HeroesListInteractor.swift */; };
 		D08698E92558E4B60018A8C8 /* HeroesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698E82558E4B60018A8C8 /* HeroesListPresenter.swift */; };
 		D086996B255902D60018A8C8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086996A255902D60018A8C8 /* SceneDelegate.swift */; };
+		D08C4D7E255F11B400300501 /* UIColor+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D7D255F11B400300501 /* UIColor+OpenHeroes.swift */; };
+		D08C4D83255F139A00300501 /* UIFont+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D82255F139A00300501 /* UIFont+OpenHeroes.swift */; };
+		D08C4D8F255F14C900300501 /* SFSymbol+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D8E255F14C900300501 /* SFSymbol+OpenHeroes.swift */; };
 		D0C6CA49255E5E3D0014BEA5 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA48255E5E3D0014BEA5 /* HeroDetailViewController.swift */; };
 		D0C6CA4E255E5E530014BEA5 /* HeroDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA4D255E5E530014BEA5 /* HeroDetailInteractor.swift */; };
 		D0C6CA53255E5E610014BEA5 /* HeroDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA52255E5E610014BEA5 /* HeroDetailRouter.swift */; };
@@ -90,6 +93,9 @@
 		D08698D52558E23C0018A8C8 /* HeroesListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListInteractor.swift; sourceTree = "<group>"; };
 		D08698E82558E4B60018A8C8 /* HeroesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListPresenter.swift; sourceTree = "<group>"; };
 		D086996A255902D60018A8C8 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D08C4D7D255F11B400300501 /* UIColor+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+OpenHeroes.swift"; sourceTree = "<group>"; };
+		D08C4D82255F139A00300501 /* UIFont+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+OpenHeroes.swift"; sourceTree = "<group>"; };
+		D08C4D8E255F14C900300501 /* SFSymbol+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSymbol+OpenHeroes.swift"; sourceTree = "<group>"; };
 		D0C6CA48255E5E3D0014BEA5 /* HeroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewController.swift; sourceTree = "<group>"; };
 		D0C6CA4D255E5E530014BEA5 /* HeroDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailInteractor.swift; sourceTree = "<group>"; };
 		D0C6CA52255E5E610014BEA5 /* HeroDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRouter.swift; sourceTree = "<group>"; };
@@ -412,6 +418,9 @@
 			isa = PBXGroup;
 			children = (
 				D0F48E76255CC62300961C8D /* Alertable.swift */,
+				D08C4D7D255F11B400300501 /* UIColor+OpenHeroes.swift */,
+				D08C4D82255F139A00300501 /* UIFont+OpenHeroes.swift */,
+				D08C4D8E255F14C900300501 /* SFSymbol+OpenHeroes.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -655,6 +664,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08698A52558CC9A0018A8C8 /* HeroesListRouter.swift in Sources */,
+				D08C4D7E255F11B400300501 /* UIColor+OpenHeroes.swift in Sources */,
+				D08C4D8F255F14C900300501 /* SFSymbol+OpenHeroes.swift in Sources */,
 				D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */,
 				D0E1654B255B39BA00895EAA /* MarvelCharacterListItemDTO.swift in Sources */,
 				D0E1657C255B431F00895EAA /* String+MD5.swift in Sources */,
@@ -678,6 +689,7 @@
 				D0F48E77255CC62300961C8D /* Alertable.swift in Sources */,
 				D0E165E7255BD05600895EAA /* CharacterListEntity.swift in Sources */,
 				D0C6CA53255E5E610014BEA5 /* HeroDetailRouter.swift in Sources */,
+				D08C4D83255F139A00300501 /* UIFont+OpenHeroes.swift in Sources */,
 				D0F48DD4255C4DB500961C8D /* ApiConfiguration.swift in Sources */,
 				D0E164E9255B114D00895EAA /* AppAppearance.swift in Sources */,
 				D0E16543255B38DA00895EAA /* MarvelNetworkResponseDTO.swift in Sources */,
@@ -859,7 +871,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = es.iPon.openHeroes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -883,7 +895,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = es.iPon.openHeroes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

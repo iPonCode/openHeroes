@@ -36,22 +36,18 @@ class HeroDetailInteractor: HeroDetailInteractorInput {
         dataManager.loadHeroDetail(id: id) { [weak self] result in
             
             guard let weakSelf = self else { return }
-            
             switch result {
-            
             case .success(let dto):
-                
                 guard let data = dto.data else {
                     weakSelf.showError("Nil data was found", title: "No Data", showInUI: true)
                     return
                 }
                 weakSelf.manageResponse(resp: data.results)
-                
             case .failure(let error):
                 switch error {
                 case .loadError(let error):
                     debugPrint("Error description: %@", error)
-                    weakSelf.showError("Downloaded data locally stored (id:\(weakSelf.id)) for next time", title: "Firt time load Detail for this id", showInUI: true)
+                    weakSelf.showError("Downloaded data locally stored (id:\(weakSelf.id)) for next time", title: "First time load Detail for this id", showInUI: true)
                 }
             }
         }
