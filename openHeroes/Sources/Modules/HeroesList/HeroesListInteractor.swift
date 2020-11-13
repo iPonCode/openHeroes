@@ -10,6 +10,7 @@ import Foundation
 // MARK: (Presenter -> Interactor)
 protocol HeroesListInteractorInput {
     func loadHeroesList()
+    var list: [CharacterListEntity] { get }
 }
 
 // MARK: (Interactor -> Presenter)
@@ -22,7 +23,8 @@ class HeroesListInteractor: HeroesListInteractorInput {
 
     weak var presenter: HeroesListInteractorOutput?
     let dataManager: MarvelDataManager
-    
+    var list: [CharacterListEntity] = []
+
     init(dataManager: MarvelDataManager) {
         self.dataManager = dataManager
     }
@@ -55,7 +57,8 @@ private extension HeroesListInteractor {
     
     func manageResponse(resp: [MarvelCharacterListItemDTO]) {
         let processedList = resp.compactMap({ CharacterListEntity($0) })
-        presenter?.updateView(list: processedList)
+        self.list = processedList
+        presenter?.updateView(list: list)
     }
     
     func showError(_ message: String = "There was an error",

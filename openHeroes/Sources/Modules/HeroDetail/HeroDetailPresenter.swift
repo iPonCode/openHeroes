@@ -22,7 +22,6 @@ class DefaultHeroDetailPresenter {
     init(interface: HeroDetailView,
          interactor: HeroDetailInteractorInput?,
          router: HeroDetailRouter) {
-        
         view = interface
         self.interactor = interactor
         self.router = router
@@ -54,7 +53,6 @@ extension DefaultHeroDetailPresenter: HeroDetailPresenter {
 extension DefaultHeroDetailPresenter: HeroDetailInteractorOutput {
     
     func showError(_ message: String?, title: String?) {
-        
         router.showAlert(msg: message ?? "An error has ocurred",
                          title: title ?? "Oops!")
     }

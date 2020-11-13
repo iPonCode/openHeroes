@@ -14,7 +14,6 @@ protocol HeroesListPresenter {
     func numberOfRows(at section: Int) -> Int
     func numberOfSections() -> Int
     func configure(_ cell: HeroesListViewCell, at indexPath: IndexPath) // TODO: Cell design
-
 }
 
 class DefaultHeroesListPresenter {
@@ -22,7 +21,6 @@ class DefaultHeroesListPresenter {
     private weak var view: HeroesListView?
     var interactor: HeroesListInteractorInput?
     private let router: HeroesListRouter
-    var heroesList: [CharacterListEntity] = []
     
     init(interface: HeroesListView,
          interactor: HeroesListInteractorInput?,
@@ -41,12 +39,13 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
     }
     
     func didSelectRow(at indexPath: IndexPath) {
-        let item = heroesList[indexPath.row]
+        guard let item = interactor?.list[indexPath.row] else { return }
         router.showHeroDetail(item)
     }
     
     func numberOfRows(at section: Int) -> Int {
-        return heroesList.count
+        guard let count = interactor?.list.count else { return 0 }
+        return count
     }
     
     func numberOfSections() -> Int {
@@ -54,7 +53,7 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
     }
     
     func configure(_ cell: HeroesListViewCell, at indexPath: IndexPath) {
-        let item = heroesList[indexPath.row]
+        guard let item = interactor?.list[indexPath.row] else { return }
         cell.configure(with: item)
     }
 
@@ -64,15 +63,12 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
 extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
     
     func showError(_ message: String?, title: String?) {
-        
         view?.endRefreshingView()
         router.showAlert(msg: message ?? "An error has ocurred",
                          title: title ?? "Oops!")
     }
     
     func updateView(list: [CharacterListEntity]) {
-        
-        self.heroesList = list
         view?.refreshView()
     }
 
