@@ -1,7 +1,7 @@
 # openHeroes
 |||
 |-|:-:|
-|![openHeroesLogo](http://ipon.es/apps/openHeroes/img/openHeroes-iOS-icon-225px-trans.png "openHeroes")|This is a Swift (UIKit) App implemented -  using the *[Marvel Characters API][apiMarvel]* - Please, feel free to comment, feedback are welcome - *Scroll down for changelog* - |
+|![openHeroesLogo](readme-img/openHeroes-iOS-icon-225px-trans.png "openHeroes")|This is a Swift (UIKit) App implemented -  using the *[Marvel Characters API][apiMarvel]* - Please, feel free to comment, feedback are welcome - *Scroll down for changelog* - |
 ||Some interesting point to hightlight: |
 ||>> **VIPER architecture** <<|
 ||>> **SOLID** principles followeded and **tried to be as CLEAN** as possible <<|
