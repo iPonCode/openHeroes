@@ -9,17 +9,12 @@ import Foundation
 
 // MARK: (Presenter -> Interactor)
 protocol HeroesListInteractorInput {
-    
     func loadHeroesList()
 }
 
 // MARK: (Interactor -> Presenter)
 protocol HeroesListInteractorOutput: AnyObject {
-    
-    func getHeroSuccess(_ hero: CharacterEntity)
-    func getHeroFailure()
-    
-    func updateView(list: [CharacterEntity])
+    func updateView(list: [CharacterListEntity])
     func showError(_ message: String?, title: String?)
 }
 
@@ -37,25 +32,21 @@ class HeroesListInteractor: HeroesListInteractorInput {
         dataManager.loadHeroesList() { [weak self] result in
             
             guard let weakSelf = self else { return }
-            
             switch result {
-            
             case .success(let dto):
-                
                 guard let data = dto.data else {
                     weakSelf.showError("Nil data was found", title: "No Data")
                     return
                 }
                 weakSelf.manageResponse(resp: data.results)
-                
             case .failure(let error):
                 switch error {
-                case .loadError(let error):
-                    weakSelf.showError("Description: \(error)", title: "Load error")
+                    case .loadError(let error):
+                        debugPrint("Error description: %@", error)
+                        weakSelf.showError("Downloaded data locally stored for next time", title: "First time List load", showInUI: true)
                 }
             }
         }
-
     }
 
 }
@@ -63,15 +54,15 @@ class HeroesListInteractor: HeroesListInteractorInput {
 private extension HeroesListInteractor {
     
     func manageResponse(resp: [MarvelCharacterListItemDTO]) {
-        
-        let processedList = resp.compactMap({ CharacterEntity($0) })
+        let processedList = resp.compactMap({ CharacterListEntity($0) })
         presenter?.updateView(list: processedList)
     }
     
-    func showError(_ message: String? = "There was an error",
-                   title: String? = "Generic Error") {
-        
-        presenter?.showError(message, title: title)
+    func showError(_ message: String = "There was an error",
+                   title: String = "Generic Error",
+                   showInUI: Bool = false) {
+        debugPrint("Error: %@. Description: %@", title, message)
+        if showInUI { presenter?.showError(message, title: title) }
     }
-    
+
 }

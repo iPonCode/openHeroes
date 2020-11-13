@@ -16,9 +16,7 @@ struct AppConstants {
         static let baseHeroDetail = "local-datasource-hero-detail-"
 
         private init() {}
-
     }
 
     private init() {}
-
 }

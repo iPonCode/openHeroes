@@ -33,19 +33,16 @@ final class DefaultMarvelApiConfig: ApiConfiguration {
     
     // MARK: Methods to obtain the urls
     func getCharactersListUrl() -> String {
-        
         let timeStamp = getTimeStamp()
         return apiBaseURL + "?ts=" + timeStamp + "&apikey=" + apiPublicKey + "&hash=" + getHashCecksum(ts: timeStamp)
     }
     
     func getDetailsUrl(_ id: Int) -> String {
-        
         let timeStamp = getTimeStamp()
         return apiBaseURL + "/" + String(id) + "?ts=" + timeStamp + "&apikey=" + apiPublicKey + "&hash=" + getHashCecksum(ts: timeStamp)
     }
 
     func getComicsItemUrl(_ resourceURI: String) -> String {
-        
         let timeStamp = getTimeStamp()
         return resourceURI + "?ts=" + timeStamp + "&apikey=" + apiPublicKey + "&hash=" + getHashCecksum(ts: timeStamp)
     }

@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             appRouter = AppRouter(window: window, dataManager: dataManager)
             appRouter?.installViewIntoRootViewController()
             
-            window.backgroundColor = UIColor.white
+            window.backgroundColor = UIColor.systemRed
             window.makeKeyAndVisible()
         }
 

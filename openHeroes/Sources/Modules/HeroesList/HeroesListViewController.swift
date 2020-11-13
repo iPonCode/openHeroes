@@ -9,7 +9,6 @@ import UIKit
 
 // MARK: (Presenter -> View)
 protocol HeroesListView: AnyObject {
-
     func refreshView()
     func endRefreshingView()
 }
@@ -17,7 +16,7 @@ protocol HeroesListView: AnyObject {
 class HeroesListViewController: UIViewController {
     
     struct VisualConstants {
-        static let rowHeight: CGFloat = 32.0
+        static let rowHeight: CGFloat = 40.0
         private init() { }
     }
     
@@ -44,7 +43,6 @@ class HeroesListViewController: UIViewController {
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
-
         super.viewDidLoad()
         presenter?.viewDidLoad()
         configureUI()
@@ -74,17 +72,14 @@ extension HeroesListViewController: HeroesListView {
     
 }
 
-
 // MARK: - UITableView Delegate and Data Source
 extension HeroesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return presenter?.numberOfRows(at: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell: HeroesListViewCell = tableView.dequeueReusableCell(withIdentifier: HeroesListViewCell.identifier) as? HeroesListViewCell else {
             return UITableViewCell()
         }
@@ -93,18 +88,15 @@ extension HeroesListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         tableView.deselectRow(at: indexPath, animated: true)
         didTapOnCell(at: indexPath)
     }
 }
 
-
 // MARK: - Configure UI
 extension HeroesListViewController {
     
     func configureUI() {
-        
         self.view.addSubview(tableView)
         tableView.addSubview(refreshControl)
         

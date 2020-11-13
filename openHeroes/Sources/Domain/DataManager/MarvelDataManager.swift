@@ -11,13 +11,13 @@ enum MarvelDataManagerError: Error {
     case loadError(Error)
 }
 
-typealias MarvelDataManagerResult = Result<MarvelNetworkResponseDTO, MarvelDataManagerError>
+typealias MarvelListDataManagerResult = Result<MarvelListNetworkResponseDTO, MarvelDataManagerError>
+typealias MarvelDetailDataManagerResult = Result<MarvelDetailNetworkResponseDTO, MarvelDataManagerError>
 typealias LocalStorageDataSource = MarvelDataSource & SaveLocalDataSource
 
 protocol MarvelDataManager {
-
-    func loadHeroesList(completion complete: @escaping (MarvelDataManagerResult) -> Void)
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataManagerResult) -> Void)
+    func loadHeroesList(completion complete: @escaping (MarvelListDataManagerResult) -> Void)
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataManagerResult) -> Void)
 }
 
 class DefaultMarvelDataManager: MarvelDataManager {
@@ -30,7 +30,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
         self.local = local
     }
 
-    func loadHeroesList(completion complete: @escaping (MarvelDataManagerResult) -> Void) {
+    func loadHeroesList(completion complete: @escaping (MarvelListDataManagerResult) -> Void) {
         
         local.loadHeroesList { result in
             switch result {
@@ -54,7 +54,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
         }
     }
 
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataManagerResult) -> Void) {
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataManagerResult) -> Void) {
 
         local.loadHeroDetail(id: id) { result in
             switch result {
@@ -70,7 +70,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
                 case .failure(let error):
                     complete(.failure(.loadError(error)))
                 case .success(let response):
-                    weakSelf.local.saveHeroesList(response) { (success) in
+                    weakSelf.local.saveHeroe(response, id: id) { (success) in
                         // TODO: Check if it is successfuly saved
                     }
                     complete(.success(response))

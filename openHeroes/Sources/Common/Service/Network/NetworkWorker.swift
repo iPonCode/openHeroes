@@ -16,11 +16,9 @@ enum NetworkWorkerError: Error {
 }
 
 protocol NetworkWorker {
-    
     func getData<T>(urlString: String,
                     completion complete: @escaping (Result<T, NetworkWorkerError>) -> Void) where T: Codable
 }
-
 
 class DefaultNetworkWorker: NetworkWorker {
 
@@ -35,7 +33,6 @@ class DefaultNetworkWorker: NetworkWorker {
         AF.request(url).responseData { response in
             
             switch response.result {
-            
             case .success(let serverResponse):
                 if let code = response.response?.statusCode {
                     switch code {
@@ -52,7 +49,6 @@ class DefaultNetworkWorker: NetworkWorker {
                         complete(.failure(.networkError(error)))
                     }
                 }
-                
             case .failure(let error):
                 complete(.failure(.networkError(error)))
             }

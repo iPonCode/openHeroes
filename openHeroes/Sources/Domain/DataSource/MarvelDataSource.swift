@@ -8,13 +8,13 @@
 import Foundation
 
 protocol MarvelDataSource {
-    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void)
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void)
+    func loadHeroesList(completion complete: @escaping (MarvelListDataSourceResult) -> Void)
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataSourceResult) -> Void)
 }
 
 protocol SaveLocalDataSource {
-    func saveHeroesList(_ result: MarvelNetworkResponseDTO, completion complete: @escaping (Bool) -> Void)
-    func saveHeroe(_ result: MarvelNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void)
+    func saveHeroesList(_ result: MarvelListNetworkResponseDTO, completion complete: @escaping (Bool) -> Void)
+    func saveHeroe(_ result: MarvelDetailNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void)
 }
 
 enum DataSourceError: Error {
@@ -25,7 +25,8 @@ enum DataSourceError: Error {
     case fileNotFound(Error)
 }
 
-typealias MarvelDataSourceResult = Result<MarvelNetworkResponseDTO, DataSourceError>
+typealias MarvelListDataSourceResult = Result<MarvelListNetworkResponseDTO, DataSourceError>
+typealias MarvelDetailDataSourceResult = Result<MarvelDetailNetworkResponseDTO, DataSourceError>
 
 class RemoteMarvelDataSource: MarvelDataSource {
     
@@ -37,9 +38,9 @@ class RemoteMarvelDataSource: MarvelDataSource {
         self.apiConfig = apiConfiguration
     }
 
-    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+    func loadHeroesList(completion complete: @escaping (MarvelListDataSourceResult) -> Void) {
         
-        netWorkworker.getData(urlString: apiConfig.getCharactersListUrl()) { (result: Result<MarvelNetworkResponseDTO, NetworkWorkerError>) in
+        netWorkworker.getData(urlString: apiConfig.getCharactersListUrl()) { (result: Result<MarvelListNetworkResponseDTO, NetworkWorkerError>) in
 
             switch result {
             case .failure(let error):
@@ -59,10 +60,9 @@ class RemoteMarvelDataSource: MarvelDataSource {
         }
     }
     
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataSourceResult) -> Void) {
         
-        // TODO: Check if it is necessary use an other DTO instead MarvelNetworkResponseDTO
-        netWorkworker.getData(urlString: apiConfig.getCharactersListUrl()) { (result: Result<MarvelNetworkResponseDTO, NetworkWorkerError>) in
+        netWorkworker.getData(urlString: apiConfig.getDetailsUrl(id)) { (result: Result<MarvelDetailNetworkResponseDTO, NetworkWorkerError>) in
 
             switch result {
             case .failure(let error):
@@ -84,32 +84,31 @@ class RemoteMarvelDataSource: MarvelDataSource {
 
 }
 
-
 class LocalMarvelDataSource: MarvelDataSource, SaveLocalDataSource {
 
-    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+    func loadHeroesList(completion complete: @escaping (MarvelListDataSourceResult) -> Void) {
         
         do {
             let jsonData = try Data(contentsOf: filePathFor(.heroesList))
-            let decodedData: MarvelNetworkResponseDTO = try JSONDecoder().decode(MarvelNetworkResponseDTO.self, from: jsonData)
+            let decodedData: MarvelListNetworkResponseDTO = try JSONDecoder().decode(MarvelListNetworkResponseDTO.self, from: jsonData)
             complete(.success(decodedData))
         } catch {
             complete(.failure(.fileNotFound(error)))
         }
     }
     
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataSourceResult) -> Void) {
         
         do {
             let jsonData = try Data(contentsOf: filePathFor(.heroeDetail, with: id))
-            let decodedData: MarvelNetworkResponseDTO = try JSONDecoder().decode(MarvelNetworkResponseDTO.self, from: jsonData)
+            let decodedData: MarvelDetailNetworkResponseDTO = try JSONDecoder().decode(MarvelDetailNetworkResponseDTO.self, from: jsonData)
             complete(.success(decodedData))
         } catch {
             complete(.failure(.fileNotFound(error)))
         }
     }
     
-    func saveHeroesList(_ result: MarvelNetworkResponseDTO, completion complete: @escaping (Bool) -> Void) {
+    func saveHeroesList(_ result: MarvelListNetworkResponseDTO, completion complete: @escaping (Bool) -> Void) {
         
         do {
             let jsonData = try JSONEncoder().encode(result)
@@ -120,7 +119,7 @@ class LocalMarvelDataSource: MarvelDataSource, SaveLocalDataSource {
         }
     }
     
-    func saveHeroe(_ result: MarvelNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void) {
+    func saveHeroe(_ result: MarvelDetailNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void) {
 
         do {
             let jsonData = try JSONEncoder().encode(result)

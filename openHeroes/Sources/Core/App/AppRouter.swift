@@ -18,11 +18,9 @@ class AppRouter {
     }
 
     func installViewIntoRootViewController() {
-
         let viewController = DefaultHeroesListRouter.createModule(dataManager: dataManager)
         let nav = UINavigationController(rootViewController: viewController)
         window.rootViewController = nav
     }
-    
     
 }

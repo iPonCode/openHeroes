@@ -8,6 +8,6 @@
 import Foundation
 
 protocol ApiConfiguration {
-    
     func getCharactersListUrl() -> String
+    func getDetailsUrl(_ id: Int) -> String
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 protocol Alertable {
-    
     var view: UIViewController? { get }
     func showAlert(msg: String, title: String)
 }

@@ -11,7 +11,6 @@ import Foundation
 public extension String {
     
     func md5() -> String { // TODO: SHA256
-        
         let context = UnsafeMutablePointer<CC_MD5_CTX>.allocate(capacity: 1)
         var digest = Array<UInt8>(repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
         
@@ -24,7 +23,6 @@ public extension String {
         for byte in digest {
             hexString += String(format: "%02x", byte)
         }
-
         return hexString
     }
 }
