@@ -44,6 +44,8 @@ final class AppAppearance {
         static let barButton = UIColor(named: "barButton")!
         static let barBackButton = UIColor(named: "barBackButton")!
         static let barTitles = UIColor(named: "barButton")!
+        static let backgroundCell = UIColor.systemBackground
+        static let backgroundTable = UIColor.systemBackground
 
         private init() {}
     }

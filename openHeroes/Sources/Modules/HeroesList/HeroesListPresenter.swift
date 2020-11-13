@@ -14,8 +14,7 @@ protocol HeroesListPresenter {
     func didSelectRow(at indexPath: IndexPath)
     func numberOfRows(at section: Int) -> Int
     func numberOfSections() -> Int
-    func getCellInfo(indexPath: IndexPath) -> CharacterEntity?  // TODO: Remove and use configure
-    //func configure(cell: HeroesListViewCell, indexPath: IndexPath) // TODO: Cell design
+    func configure(_ cell: HeroesListViewCell, at indexPath: IndexPath) // TODO: Cell design
 
 }
 
@@ -56,13 +55,10 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
         return 1
     }
     
-    func getCellInfo(indexPath: IndexPath) -> CharacterEntity? {
-        return heroesList[indexPath.row]
+    func configure(_ cell: HeroesListViewCell, at indexPath: IndexPath) {
+        let item = heroesList[indexPath.row]
+        cell.configure(with: item)
     }
-    
-//    func configure(cell: HeroesListViewCell, indexPath: IndexPath) {
-//        cell.textLabel?.text = heroesList[indexPath.row].description
-//    }
 
 }
 

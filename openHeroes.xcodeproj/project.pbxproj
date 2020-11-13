@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A1014D966A68C6653A78BEBE /* Pods_openHeroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7288055FBA5789D2C2CDBA59 /* Pods_openHeroes.framework */; };
 		B3D0865B315D56CEC55F2C99 /* Pods_openHeroesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82AF919BCDA6C6746FE1C90A /* Pods_openHeroesTests.framework */; };
+		D0463F79255E48F000D4A3F5 /* HeroesListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0463F78255E48F000D4A3F5 /* HeroesListViewCell.swift */; };
+		D0463F9E255E4C8C00D4A3F5 /* HeroesListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0463F9D255E4C8C00D4A3F5 /* HeroesListViewCell.xib */; };
 		D0869826255899290018A8C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0869825255899290018A8C8 /* AppDelegate.swift */; };
 		D086982A255899290018A8C8 /* HeroesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0869829255899290018A8C8 /* HeroesListViewController.swift */; };
 		D086982F2558992D0018A8C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D086982E2558992D0018A8C8 /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		7C3319DD2777B01FFAE836E9 /* Pods-openHeroes-openHeroesUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-openHeroes-openHeroesUITests.debug.xcconfig"; path = "Target Support Files/Pods-openHeroes-openHeroesUITests/Pods-openHeroes-openHeroesUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		82AF919BCDA6C6746FE1C90A /* Pods_openHeroesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openHeroesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B1898342D8C38B676B12AF /* Pods-openHeroes-openHeroesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-openHeroes-openHeroesUITests.release.xcconfig"; path = "Target Support Files/Pods-openHeroes-openHeroesUITests/Pods-openHeroes-openHeroesUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D0463F78255E48F000D4A3F5 /* HeroesListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListViewCell.swift; sourceTree = "<group>"; };
+		D0463F9D255E4C8C00D4A3F5 /* HeroesListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeroesListViewCell.xib; sourceTree = "<group>"; };
 		D0869822255899290018A8C8 /* openHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0869825255899290018A8C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0869829255899290018A8C8 /* HeroesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,15 @@
 				739593BB9D6107EA441B131B /* Pods-openHeroesTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		D0463F77255E48C500D4A3F5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D0463F78255E48F000D4A3F5 /* HeroesListViewCell.swift */,
+				D0463F9D255E4C8C00D4A3F5 /* HeroesListViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D0869819255899290018A8C8 = {
@@ -258,6 +271,7 @@
 		D08698762558A9B70018A8C8 /* HeroesList */ = {
 			isa = PBXGroup;
 			children = (
+				D0463F77255E48C500D4A3F5 /* Cells */,
 				D08698A42558CC9A0018A8C8 /* HeroesListRouter.swift */,
 				D08698D52558E23C0018A8C8 /* HeroesListInteractor.swift */,
 				D08698E82558E4B60018A8C8 /* HeroesListPresenter.swift */,
@@ -497,6 +511,7 @@
 			files = (
 				D08698322558992D0018A8C8 /* LaunchScreen.storyboard in Resources */,
 				D086982F2558992D0018A8C8 /* Assets.xcassets in Resources */,
+				D0463F9E255E4C8C00D4A3F5 /* HeroesListViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +643,7 @@
 				D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */,
 				D0E1654B255B39BA00895EAA /* MarvelCharacterListItemDTO.swift in Sources */,
 				D0E1657C255B431F00895EAA /* String+MD5.swift in Sources */,
+				D0463F79255E48F000D4A3F5 /* HeroesListViewCell.swift in Sources */,
 				D0F48F29255DE1D000961C8D /* AppConstants.swift in Sources */,
 				D0E165CA255BA6C800895EAA /* MarvelDataSource.swift in Sources */,
 				D0E1658C255B7AEC00895EAA /* NetworkWorker.swift in Sources */,

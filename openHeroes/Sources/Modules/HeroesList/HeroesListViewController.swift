@@ -29,8 +29,7 @@ class HeroesListViewController: UIViewController {
     var presenter: HeroesListPresenter?
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView() // TODO: Cell design
-        tableView.rowHeight = VisualConstants.rowHeight
+        let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
@@ -86,9 +85,10 @@ extension HeroesListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
-        cell.textLabel?.text = presenter?.getCellInfo(indexPath: indexPath)?.name
-        //presenter?.configure(cell: cell, indexPath: indexPath)
+        guard let cell: HeroesListViewCell = tableView.dequeueReusableCell(withIdentifier: HeroesListViewCell.identifier) as? HeroesListViewCell else {
+            return UITableViewCell()
+        }
+        presenter?.configure(cell, at: indexPath)
         return cell
     }
     
@@ -107,6 +107,11 @@ extension HeroesListViewController {
         
         self.view.addSubview(tableView)
         tableView.addSubview(refreshControl)
+        
+        tableView.register(UINib(nibName: HeroesListViewCell.identifier, bundle: nil),
+                           forCellReuseIdentifier: HeroesListViewCell.identifier)
+        tableView.backgroundColor = AppAppearance.Color.backgroundTable
+        tableView.rowHeight = VisualConstants.rowHeight
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
