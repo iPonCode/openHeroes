@@ -17,6 +17,16 @@ extension Alertable {
     
     func showAlert(msg: String, title: String) {
         
+        // If there was already a viewController presented dismiss it and present the new one
+        if view?.presentedViewController != nil {
+            view?.presentedViewController?.dismiss(animated: true) { presentAlert(msg: msg, title: title) }
+        } else {
+            presentAlert(msg: msg, title: title)
+        }
+        
+    }
+    
+    private func presentAlert(msg: String, title: String) {
         let alertController = UIAlertController(title: title,
                                                 message: msg,
                                                 preferredStyle: .alert)
@@ -24,7 +34,7 @@ extension Alertable {
                                    style: .cancel,
                                    handler: nil)
         alertController.addAction(action)
-        
         view?.present(alertController, animated: true, completion: nil)
     }
+    
 }

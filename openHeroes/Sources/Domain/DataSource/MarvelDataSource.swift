@@ -8,8 +8,8 @@
 import Foundation
 
 protocol MarvelDataSource {
-    func loadHeroesList(completion complete: @escaping (MarvelServiceResult) -> Void)
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelServiceResult) -> Void)
+    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void)
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void)
 }
 
 protocol SaveLocalDataSource {
@@ -17,14 +17,15 @@ protocol SaveLocalDataSource {
     func saveHeroe(_ result: MarvelNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void)
 }
 
-enum ServiceError: Error {
+enum DataSourceError: Error {
     case invalidUrl
     case noHeroesData
     case networkError(Error)
     case invalidHeroesData(Error)
+    case fileNotFound(Error)
 }
 
-typealias MarvelServiceResult = Result<MarvelNetworkResponseDTO, ServiceError>
+typealias MarvelDataSourceResult = Result<MarvelNetworkResponseDTO, DataSourceError>
 
 class RemoteMarvelDataSource: MarvelDataSource {
     
@@ -36,7 +37,7 @@ class RemoteMarvelDataSource: MarvelDataSource {
         self.apiConfig = apiConfiguration
     }
 
-    func loadHeroesList(completion complete: @escaping (MarvelServiceResult) -> Void) {
+    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void) {
         
         netWorkworker.getData(urlString: apiConfig.getCharactersListUrl()) { (result: Result<MarvelNetworkResponseDTO, NetworkWorkerError>) in
 
@@ -58,9 +59,9 @@ class RemoteMarvelDataSource: MarvelDataSource {
         }
     }
     
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelServiceResult) -> Void) {
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void) {
         
-        // TODO: Check if it is necessary change MarvelNetworkResponseDTO
+        // TODO: Check if it is necessary use an other DTO instead MarvelNetworkResponseDTO
         netWorkworker.getData(urlString: apiConfig.getCharactersListUrl()) { (result: Result<MarvelNetworkResponseDTO, NetworkWorkerError>) in
 
             switch result {
@@ -86,20 +87,70 @@ class RemoteMarvelDataSource: MarvelDataSource {
 
 class LocalMarvelDataSource: MarvelDataSource, SaveLocalDataSource {
 
-    func loadHeroesList(completion complete: @escaping (MarvelServiceResult) -> Void) {
-        // TODO
+    func loadHeroesList(completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+        
+        do {
+            let jsonData = try Data(contentsOf: filePathFor(.heroesList))
+            let decodedData: MarvelNetworkResponseDTO = try JSONDecoder().decode(MarvelNetworkResponseDTO.self, from: jsonData)
+            complete(.success(decodedData))
+        } catch {
+            complete(.failure(.fileNotFound(error)))
+        }
     }
     
-    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelServiceResult) -> Void) {
-        // TODO
+    func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataSourceResult) -> Void) {
+        
+        do {
+            let jsonData = try Data(contentsOf: filePathFor(.heroeDetail, with: id))
+            let decodedData: MarvelNetworkResponseDTO = try JSONDecoder().decode(MarvelNetworkResponseDTO.self, from: jsonData)
+            complete(.success(decodedData))
+        } catch {
+            complete(.failure(.fileNotFound(error)))
+        }
     }
     
     func saveHeroesList(_ result: MarvelNetworkResponseDTO, completion complete: @escaping (Bool) -> Void) {
-        // TODO
+        
+        do {
+            let jsonData = try JSONEncoder().encode(result)
+            try jsonData.write(to: filePathFor(.heroesList))
+            complete(true)
+        } catch {
+            complete(false)
+        }
     }
     
     func saveHeroe(_ result: MarvelNetworkResponseDTO, id: Int, completion complete: @escaping (Bool) -> Void) {
-        // TODO
+
+        do {
+            let jsonData = try JSONEncoder().encode(result)
+            try jsonData.write(to: filePathFor(.heroeDetail, with: id))
+            complete(true)
+        } catch {
+            complete(false)
+        }
+    }
+    
+    enum FileType {
+        case heroesList
+        case heroeDetail
+    }
+    
+    private func filePathFor(_ fileType: FileType, with id: Int = 0) -> URL {
+        switch fileType {
+        case .heroesList:
+            return getDocumentsURL(for: AppConstants.FileName.heroesList)
+        case .heroeDetail:
+            return getDocumentsURL(for: AppConstants.FileName.baseHeroDetail +
+                                    String(id) +
+                                    AppConstants.FileName.fileExtension)
+        }
+    }
+
+    private func getDocumentsURL(for file: String) -> URL {
+        let urlStr = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
+        let url = URL(fileURLWithPath: urlStr! + "/" + file)
+        return url
     }
     
 }

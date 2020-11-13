@@ -8,7 +8,7 @@
 import Foundation
 
 enum MarvelDataManagerError: Error {
-    case loadError
+    case loadError(Error)
 }
 
 typealias MarvelDataManagerResult = Result<MarvelNetworkResponseDTO, MarvelDataManagerError>
@@ -24,7 +24,6 @@ class DefaultMarvelDataManager: MarvelDataManager {
 
     let remote: MarvelDataSource
     let local: LocalStorageDataSource
-    // TODO: Storage
 
     init(remote: MarvelDataSource, local: LocalStorageDataSource) {
         self.remote = remote
@@ -32,42 +31,51 @@ class DefaultMarvelDataManager: MarvelDataManager {
     }
 
     func loadHeroesList(completion complete: @escaping (MarvelDataManagerResult) -> Void) {
-    
-       // TODO: Check storage before service
-    
-        local.loadHeroesList { result in
-            
-            switch result {
-            
-            case .failure(_):
-                complete(.failure(.loadError))
-                
-            case .success(let response):
-                
-                // TODO: Save in storage if necessary
-                complete(.success(response))
-            }
-            
-        }
         
-        remote.loadHeroesList { result in
-            
+        local.loadHeroesList { result in
             switch result {
-            
-            case .failure(_):
-                complete(.failure(.loadError))
-                
-            case .success(let response):
-                
-                // TODO: Save in storage if necessary
-                complete(.success(response))
+                case .failure(let error):
+                    complete(.failure(.loadError(error)))
+                case .success(let response):
+                    complete(.success(response))
             }
-            
+        }
+        remote.loadHeroesList { [weak self] result in
+            guard let weakSelf = self else { return }
+            switch result {
+                case .failure(let error):
+                    complete(.failure(.loadError(error)))
+                case .success(let response):
+                    weakSelf.local.saveHeroesList(response) { (success) in
+                        // TODO: Check if it is successfuly saved
+                    }
+                    complete(.success(response))
+            }
         }
     }
 
     func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDataManagerResult) -> Void) {
-        // TODO
+
+        local.loadHeroDetail(id: id) { result in
+            switch result {
+                case .failure(let error):
+                    complete(.failure(.loadError(error)))
+                case .success(let response):
+                    complete(.success(response))
+            }
+        }
+        remote.loadHeroDetail(id: id) { [weak self] result in
+            guard let weakSelf = self else { return }
+            switch result {
+                case .failure(let error):
+                    complete(.failure(.loadError(error)))
+                case .success(let response):
+                    weakSelf.local.saveHeroesList(response) { (success) in
+                        // TODO: Check if it is successfuly saved
+                    }
+                    complete(.success(response))
+            }
+        }
     }
     
 }

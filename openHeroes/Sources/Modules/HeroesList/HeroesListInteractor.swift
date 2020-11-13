@@ -36,18 +36,23 @@ class HeroesListInteractor: HeroesListInteractorInput {
     
         dataManager.loadHeroesList() { [weak self] result in
             
+            guard let weakSelf = self else { return }
+            
             switch result {
             
             case .success(let dto):
                 
                 guard let data = dto.data else {
-                    self?.showError("Nil data was found", title: "No Data")
+                    weakSelf.showError("Nil data was found", title: "No Data")
                     return
                 }
-                self?.manageResponse(resp: data.results)
+                weakSelf.manageResponse(resp: data.results)
                 
             case .failure(let error):
-                self?.showError("\(error)", title: "Network Error")
+                switch error {
+                case .loadError(let error):
+                    weakSelf.showError("Description: \(error)", title: "Load error")
+                }
             }
         }
 
