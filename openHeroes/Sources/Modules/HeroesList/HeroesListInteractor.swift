@@ -15,7 +15,7 @@ protocol HeroesListInteractorInput {
 
 // MARK: (Interactor -> Presenter)
 protocol HeroesListInteractorOutput: AnyObject {
-    func updateView(list: [CharacterListEntity])
+    func updateView()
     func showError(_ message: String?, title: String?)
 }
 
@@ -58,7 +58,7 @@ private extension HeroesListInteractor {
     func manageResponse(resp: [MarvelCharacterListItemDTO]) {
         let processedList = resp.compactMap({ CharacterListEntity($0) })
         self.list = processedList
-        presenter?.updateView(list: list)
+        presenter?.updateView()
     }
     
     func showError(_ message: String = "There was an error",
