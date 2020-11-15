@@ -1,4 +1,4 @@
-//  HeroesListInteractorTests.swift
+//  HeroDetailInteractorTests.swift
 //  openHeroesTests
 //
 //  Created by Simón Aparicio on 13/11/2020.
@@ -8,15 +8,15 @@
 import XCTest
 @testable import openHeroes
 
-class HeroesListInteractorTests: XCTestCase {
+class HeroDetailInteractorTests: XCTestCase {
 
-    var subjectUnderTest: HeroesListInteractor!
+    var subjectUnderTest: HeroDetailInteractor!
     let dataManagerMock = DataManagerMock()
-    let presenterMock = HeroesListPresenterMock()
+    let presenterMock = HeroDetailPresenterMock()
     
     override func setUp() {
         super.setUp()
-        subjectUnderTest = HeroesListInteractor(dataManager: dataManagerMock)
+        subjectUnderTest = HeroDetailInteractor(dataManager: dataManagerMock, id: 42)
         subjectUnderTest.presenter = presenterMock
     }
 
@@ -26,22 +26,22 @@ class HeroesListInteractorTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_givenNoError_whenLoadHeroesList_thenReturnSuccess() {
+    func test_givenNoError_whenLoadHeroDetail_thenReturnSuccess() {
         
-        let exp = expectation(description: "test_givenNoError_whenLoadHeroesList_thenReturnSuccess")
+        let exp = expectation(description: "test_givenNoError_whenLoadHeroDetail_thenReturnSuccess")
         
         // Given
-        let expectedList = self.dataManagerMock.listSuccessResponse.data?.results.compactMap( { CharacterListEntity($0) })
+        let expectedDetail = self.dataManagerMock.detailSuccessResponse.data?.results.compactMap( { CharacterDetailEntity($0) })
         
         // When
-        subjectUnderTest.loadHeroesList()
+        subjectUnderTest.loadHeroDetail()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 0.5)
 
         // Then
-        XCTAssertEqual(self.subjectUnderTest.list, expectedList)
+        XCTAssertEqual(self.subjectUnderTest.detail, expectedDetail)
     }
 
 
