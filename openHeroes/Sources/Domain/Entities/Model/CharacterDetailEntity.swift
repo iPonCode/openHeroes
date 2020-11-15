@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharacterDetailEntity {
+struct CharacterDetailEntity: Equatable {
     let id: Int
     let name: String?
     let comics: [ComicEntity]
@@ -16,6 +16,10 @@ struct CharacterDetailEntity {
     var seriesCount: Int = 0
     var storiesCount: Int = 0
     var eventsCount: Int = 0
+
+    static func == (lhs: CharacterDetailEntity, rhs: CharacterDetailEntity) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 extension CharacterDetailEntity {

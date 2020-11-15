@@ -68,7 +68,7 @@ extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
                          title: title ?? "Oops!")
     }
     
-    func updateView(list: [CharacterListEntity]) {
+    func updateView() {
         view?.refreshView()
     }
 
