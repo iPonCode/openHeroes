@@ -16,7 +16,7 @@ protocol HeroesListInteractorInput {
 // MARK: (Interactor -> Presenter)
 protocol HeroesListInteractorOutput: AnyObject {
     func updateView()
-    func showError(_ message: String?, title: String?)
+    func showError(_ message: String?, title: String?, showInUI: Bool)
 }
 
 class HeroesListInteractor: HeroesListInteractorInput {
@@ -43,9 +43,15 @@ class HeroesListInteractor: HeroesListInteractorInput {
                 weakSelf.manageResponse(resp: data.results)
             case .failure(let error):
                 switch error {
-                    case .loadError(let error):
-                        debugPrint("Error description: %@", error)
-                        weakSelf.showError("Downloaded data locally stored for next time", title: "First time List load", showInUI: true)
+                    case .loadErrorLocal(let error): // TODO: Asume it's because first App run and don't have the file saved yet
+                        debugPrint(String(format:"Error: %@", error.localizedDescription))
+                        weakSelf.showError("If downloaded data successfully, will locally stored for display faster next time",
+                                           title: "First time List load", showInUI: true)
+                        
+                    case .loadErrorRemote(let error): // TODO: This error can be (no-internet)
+                        debugPrint(String(format:"Error: %@", error.localizedDescription))
+                        weakSelf.showError("An error occur trying to comunicate with the webservice, will display local data if possible. Please check the internet connection",
+                                           title: "Comunication Error loading List", showInUI: true)
                 }
             }
         }
@@ -64,8 +70,8 @@ private extension HeroesListInteractor {
     func showError(_ message: String = "There was an error",
                    title: String = "Generic Error",
                    showInUI: Bool = false) {
-        debugPrint("Error: %@. Description: %@", title, message)
-        if showInUI { presenter?.showError(message, title: title) }
+        debugPrint(String(format:"Error: %@. Description: %@", title, message))
+        presenter?.showError(message, title: title, showInUI: showInUI)
     }
 
 }

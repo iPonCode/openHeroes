@@ -8,7 +8,8 @@
 import Foundation
 
 enum MarvelDataManagerError: Error {
-    case loadError(Error)
+    case loadErrorRemote(Error)
+    case loadErrorLocal(Error)
 }
 
 typealias MarvelListDataManagerResult = Result<MarvelListNetworkResponseDTO, MarvelDataManagerError>
@@ -35,7 +36,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
         local.loadHeroesList { result in
             switch result {
                 case .failure(let error):
-                    complete(.failure(.loadError(error)))
+                    complete(.failure(.loadErrorLocal(error)))
                 case .success(let response):
                     complete(.success(response))
             }
@@ -44,10 +45,10 @@ class DefaultMarvelDataManager: MarvelDataManager {
             guard let weakSelf = self else { return }
             switch result {
                 case .failure(let error):
-                    complete(.failure(.loadError(error)))
+                    complete(.failure(.loadErrorRemote(error)))
                 case .success(let response):
                     weakSelf.local.saveHeroesList(response) { (success) in
-                        // TODO: Check if it is successfuly saved
+                        // TODO: Use a flag to track the state of saved local file
                     }
                     complete(.success(response))
             }
@@ -59,7 +60,7 @@ class DefaultMarvelDataManager: MarvelDataManager {
         local.loadHeroDetail(id: id) { result in
             switch result {
                 case .failure(let error):
-                    complete(.failure(.loadError(error)))
+                    complete(.failure(.loadErrorLocal(error)))
                 case .success(let response):
                     complete(.success(response))
             }
@@ -68,10 +69,10 @@ class DefaultMarvelDataManager: MarvelDataManager {
             guard let weakSelf = self else { return }
             switch result {
                 case .failure(let error):
-                    complete(.failure(.loadError(error)))
+                    complete(.failure(.loadErrorRemote(error)))
                 case .success(let response):
                     weakSelf.local.saveHeroe(response, id: id) { (success) in
-                        // TODO: Check if it is successfuly saved
+                        // TODO: Use a flag to track the state of saved local file
                     }
                     complete(.success(response))
             }

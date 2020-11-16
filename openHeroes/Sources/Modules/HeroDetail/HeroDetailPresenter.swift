@@ -52,9 +52,9 @@ extension DefaultHeroDetailPresenter: HeroDetailPresenter {
 // MARK: - Outputs to view
 extension DefaultHeroDetailPresenter: HeroDetailInteractorOutput {
     
-    func showError(_ message: String?, title: String?) {
-        router.showAlert(msg: message ?? "An error has ocurred",
-                         title: title ?? "Oops!")
+    func showError(_ message: String?, title: String?, showInUI: Bool) {
+        if showInUI { router.showAlert(msg: message ?? "An error has ocurred",
+                                       title: title ?? "Oops!") }
     }
     
     func updateView() {
