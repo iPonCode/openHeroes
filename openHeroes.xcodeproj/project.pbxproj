@@ -13,11 +13,14 @@
 		D0075143255EA00000AB00BE /* CharacterDetailEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0075142255EA00000AB00BE /* CharacterDetailEntity.swift */; };
 		D0463F79255E48F000D4A3F5 /* HeroesListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0463F78255E48F000D4A3F5 /* HeroesListViewCell.swift */; };
 		D0463F9E255E4C8C00D4A3F5 /* HeroesListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0463F9D255E4C8C00D4A3F5 /* HeroesListViewCell.xib */; };
+		D07A214925618F6D0037D1CA /* DataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A214825618F6D0037D1CA /* DataManagerMock.swift */; };
+		D07A21512561991C0037D1CA /* HeroesListPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A21502561991C0037D1CA /* HeroesListPresenterMock.swift */; };
+		D07A21682561C08B0037D1CA /* HeroDetailInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A21672561C08A0037D1CA /* HeroDetailInteractorTest.swift */; };
+		D07A216D2561C4110037D1CA /* HeroDetailPresenteMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A216C2561C4110037D1CA /* HeroDetailPresenteMock.swift */; };
 		D0869826255899290018A8C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0869825255899290018A8C8 /* AppDelegate.swift */; };
 		D086982A255899290018A8C8 /* HeroesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0869829255899290018A8C8 /* HeroesListViewController.swift */; };
 		D086982F2558992D0018A8C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D086982E2558992D0018A8C8 /* Assets.xcassets */; };
 		D08698322558992D0018A8C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08698302558992D0018A8C8 /* LaunchScreen.storyboard */; };
-		D086983D2558992D0018A8C8 /* openHeroesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086983C2558992D0018A8C8 /* openHeroesTests.swift */; };
 		D08698482558992D0018A8C8 /* openHeroesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698472558992D0018A8C8 /* openHeroesUITests.swift */; };
 		D08698A52558CC9A0018A8C8 /* HeroesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698A42558CC9A0018A8C8 /* HeroesListRouter.swift */; };
 		D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698D52558E23C0018A8C8 /* HeroesListInteractor.swift */; };
@@ -26,6 +29,7 @@
 		D08C4D7E255F11B400300501 /* UIColor+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D7D255F11B400300501 /* UIColor+OpenHeroes.swift */; };
 		D08C4D83255F139A00300501 /* UIFont+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D82255F139A00300501 /* UIFont+OpenHeroes.swift */; };
 		D08C4D8F255F14C900300501 /* SFSymbol+OpenHeroes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4D8E255F14C900300501 /* SFSymbol+OpenHeroes.swift */; };
+		D08C4DBF255F44FC00300501 /* HeroesListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08C4DBE255F44FC00300501 /* HeroesListInteractorTests.swift */; };
 		D0C6CA49255E5E3D0014BEA5 /* HeroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA48255E5E3D0014BEA5 /* HeroDetailViewController.swift */; };
 		D0C6CA4E255E5E530014BEA5 /* HeroDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA4D255E5E530014BEA5 /* HeroDetailInteractor.swift */; };
 		D0C6CA53255E5E610014BEA5 /* HeroDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6CA52255E5E610014BEA5 /* HeroDetailRouter.swift */; };
@@ -77,6 +81,10 @@
 		D0075142255EA00000AB00BE /* CharacterDetailEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailEntity.swift; sourceTree = "<group>"; };
 		D0463F78255E48F000D4A3F5 /* HeroesListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListViewCell.swift; sourceTree = "<group>"; };
 		D0463F9D255E4C8C00D4A3F5 /* HeroesListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeroesListViewCell.xib; sourceTree = "<group>"; };
+		D07A214825618F6D0037D1CA /* DataManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerMock.swift; sourceTree = "<group>"; };
+		D07A21502561991C0037D1CA /* HeroesListPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListPresenterMock.swift; sourceTree = "<group>"; };
+		D07A21672561C08A0037D1CA /* HeroDetailInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailInteractorTest.swift; sourceTree = "<group>"; };
+		D07A216C2561C4110037D1CA /* HeroDetailPresenteMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailPresenteMock.swift; sourceTree = "<group>"; };
 		D0869822255899290018A8C8 /* openHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0869825255899290018A8C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0869829255899290018A8C8 /* HeroesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +92,6 @@
 		D08698312558992D0018A8C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08698332558992D0018A8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08698382558992D0018A8C8 /* openHeroesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openHeroesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D086983C2558992D0018A8C8 /* openHeroesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openHeroesTests.swift; sourceTree = "<group>"; };
 		D086983E2558992D0018A8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08698432558992D0018A8C8 /* openHeroesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openHeroesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08698472558992D0018A8C8 /* openHeroesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openHeroesUITests.swift; sourceTree = "<group>"; };
@@ -96,6 +103,7 @@
 		D08C4D7D255F11B400300501 /* UIColor+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+OpenHeroes.swift"; sourceTree = "<group>"; };
 		D08C4D82255F139A00300501 /* UIFont+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+OpenHeroes.swift"; sourceTree = "<group>"; };
 		D08C4D8E255F14C900300501 /* SFSymbol+OpenHeroes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSymbol+OpenHeroes.swift"; sourceTree = "<group>"; };
+		D08C4DBE255F44FC00300501 /* HeroesListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesListInteractorTests.swift; sourceTree = "<group>"; };
 		D0C6CA48255E5E3D0014BEA5 /* HeroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailViewController.swift; sourceTree = "<group>"; };
 		D0C6CA4D255E5E530014BEA5 /* HeroDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailInteractor.swift; sourceTree = "<group>"; };
 		D0C6CA52255E5E610014BEA5 /* HeroDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroDetailRouter.swift; sourceTree = "<group>"; };
@@ -177,6 +185,16 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		D07A214725618F440037D1CA /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				D07A214825618F6D0037D1CA /* DataManagerMock.swift */,
+				D07A21502561991C0037D1CA /* HeroesListPresenterMock.swift */,
+				D07A216C2561C4110037D1CA /* HeroDetailPresenteMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		D0869819255899290018A8C8 = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +230,9 @@
 		D086983B2558992D0018A8C8 /* openHeroesTests */ = {
 			isa = PBXGroup;
 			children = (
-				D086983C2558992D0018A8C8 /* openHeroesTests.swift */,
+				D07A214725618F440037D1CA /* Mocks */,
+				D08C4DBE255F44FC00300501 /* HeroesListInteractorTests.swift */,
+				D07A21672561C08A0037D1CA /* HeroDetailInteractorTest.swift */,
 				D086983E2558992D0018A8C8 /* Info.plist */,
 			);
 			path = openHeroesTests;
@@ -700,7 +720,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D086983D2558992D0018A8C8 /* openHeroesTests.swift in Sources */,
+				D07A21512561991C0037D1CA /* HeroesListPresenterMock.swift in Sources */,
+				D08C4DBF255F44FC00300501 /* HeroesListInteractorTests.swift in Sources */,
+				D07A216D2561C4110037D1CA /* HeroDetailPresenteMock.swift in Sources */,
+				D07A214925618F6D0037D1CA /* DataManagerMock.swift in Sources */,
+				D07A21682561C08B0037D1CA /* HeroDetailInteractorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
