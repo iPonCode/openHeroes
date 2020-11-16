@@ -62,10 +62,10 @@ extension DefaultHeroesListPresenter: HeroesListPresenter {
 // MARK: - Outputs to view
 extension DefaultHeroesListPresenter: HeroesListInteractorOutput {
     
-    func showError(_ message: String?, title: String?) {
+    func showError(_ message: String?, title: String?, showInUI: Bool) {
         view?.endRefreshingView()
-        router.showAlert(msg: message ?? "An error has ocurred",
-                         title: title ?? "Oops!")
+        if showInUI { router.showAlert(msg: message ?? "An error has ocurred",
+                                       title: title ?? "Oops!") }
     }
     
     func updateView() {

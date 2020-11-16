@@ -18,7 +18,6 @@ class HeroDetailViewController: UIViewController {
         return .lightContent
     }
     
-    // MARK: - Properties
     var presenter: HeroDetailPresenter?
     
     lazy var rawDataText: UITextView = {
@@ -34,7 +33,6 @@ class HeroDetailViewController: UIViewController {
         return textView
     }()
     
-    // MARK: - Life Cycle
     override func viewDidLoad() {
 
         super.viewDidLoad()
