@@ -21,7 +21,6 @@
 		D086982A255899290018A8C8 /* HeroesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0869829255899290018A8C8 /* HeroesListViewController.swift */; };
 		D086982F2558992D0018A8C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D086982E2558992D0018A8C8 /* Assets.xcassets */; };
 		D08698322558992D0018A8C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08698302558992D0018A8C8 /* LaunchScreen.storyboard */; };
-		D086983D2558992D0018A8C8 /* openHeroesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086983C2558992D0018A8C8 /* openHeroesTests.swift */; };
 		D08698482558992D0018A8C8 /* openHeroesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698472558992D0018A8C8 /* openHeroesUITests.swift */; };
 		D08698A52558CC9A0018A8C8 /* HeroesListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698A42558CC9A0018A8C8 /* HeroesListRouter.swift */; };
 		D08698D62558E23C0018A8C8 /* HeroesListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08698D52558E23C0018A8C8 /* HeroesListInteractor.swift */; };
@@ -93,7 +92,6 @@
 		D08698312558992D0018A8C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08698332558992D0018A8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08698382558992D0018A8C8 /* openHeroesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openHeroesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D086983C2558992D0018A8C8 /* openHeroesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openHeroesTests.swift; sourceTree = "<group>"; };
 		D086983E2558992D0018A8C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D08698432558992D0018A8C8 /* openHeroesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = openHeroesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08698472558992D0018A8C8 /* openHeroesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = openHeroesUITests.swift; sourceTree = "<group>"; };
@@ -235,7 +233,6 @@
 				D07A214725618F440037D1CA /* Mocks */,
 				D08C4DBE255F44FC00300501 /* HeroesListInteractorTests.swift */,
 				D07A21672561C08A0037D1CA /* HeroDetailInteractorTest.swift */,
-				D086983C2558992D0018A8C8 /* openHeroesTests.swift */,
 				D086983E2558992D0018A8C8 /* Info.plist */,
 			);
 			path = openHeroesTests;
@@ -726,7 +723,6 @@
 				D07A21512561991C0037D1CA /* HeroesListPresenterMock.swift in Sources */,
 				D08C4DBF255F44FC00300501 /* HeroesListInteractorTests.swift in Sources */,
 				D07A216D2561C4110037D1CA /* HeroDetailPresenteMock.swift in Sources */,
-				D086983D2558992D0018A8C8 /* openHeroesTests.swift in Sources */,
 				D07A214925618F6D0037D1CA /* DataManagerMock.swift in Sources */,
 				D07A21682561C08B0037D1CA /* HeroDetailInteractorTest.swift in Sources */,
 			);

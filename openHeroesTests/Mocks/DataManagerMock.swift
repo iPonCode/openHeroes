@@ -45,7 +45,7 @@ class DataManagerMock: MarvelDataManager {
                                                          attributionText: "",
                                                          attributionHTML: "",
                                                          etag: "",
-                                                         data: listResponseData)
+                                                         data: nil)
         return errorResponse
     }()
 
@@ -93,36 +93,34 @@ class DataManagerMock: MarvelDataManager {
                                                            attributionText: "",
                                                            attributionHTML: "",
                                                            etag: "",
-                                                           data: detailResponseData)
+                                                           data: nil)
         return errorResponse
     }()
     
     private var forceError: Bool = false
-    private var forceCustomError: Bool = false
+    private struct aLoadError: Error { let error: String = "ErrorDescriptionForLoadError" }
+    private let error = aLoadError()
     
     func reset() {
         forceError = false
-        forceCustomError = false
     }
 
     func provokeError() {
         forceError = true
     }
 
-    func provokeCustomError() {
-        forceCustomError = true
-    }
-    
     func loadHeroesList(completion complete: @escaping (MarvelListDataManagerResult) -> Void) {
+        
         complete(forceError ?
-                    .failure(MarvelDataManagerError.loadError("ErrorDescriptionForLoadError" as! Error)) :
-                    .success(forceCustomError ? listErrorResponse : listSuccessResponse))
+                    .failure(MarvelDataManagerError.loadError(error)) :
+                    .success(listSuccessResponse))
     }
     
     func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataManagerResult) -> Void) {
+
         complete(forceError ?
-                    .failure(MarvelDataManagerError.loadError("ErrorDescriptionForLoadError" as! Error)) :
-                    .success(forceCustomError ? detailErrorResponse : detailSuccessResponse))
+                    .failure(MarvelDataManagerError.loadError(error)) :
+                    .success(detailSuccessResponse))
     }
     
 }

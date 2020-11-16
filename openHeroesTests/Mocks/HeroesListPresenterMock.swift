@@ -9,13 +9,17 @@ import Foundation
 @testable import openHeroes
 
 class HeroesListPresenterMock: HeroesListInteractorOutput {
+    
+    var isShowingError: Bool = false
 
     func updateView() {
     }
     
     func showError(_ message: String?, title: String?) {
+        isShowingError = true
     }
     
     func reset() {
+        isShowingError = false
     }
 }
