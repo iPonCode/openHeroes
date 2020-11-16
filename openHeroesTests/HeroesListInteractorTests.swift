@@ -44,12 +44,12 @@ class HeroesListInteractorTests: XCTestCase {
         XCTAssertEqual(self.subjectUnderTest.list, expectedList)
     }
 
-    func test_givenError_whenLoadHeroesList_thenPresenterShowError() {
+    func test_givenErrorOnLocal_whenLoadHeroesList_thenPresenterShowError() {
         
-        let exp = expectation(description: "test_givenError_whenLoadHeroesList_thenPresenterShowError")
+        let exp = expectation(description: "test_givenErrorOnLocal_whenLoadHeroesList_thenPresenterShowError")
         
         // Given
-        dataManagerMock.provokeError()
+        dataManagerMock.provokeErrorOnLocal()
         
         // When
         subjectUnderTest.loadHeroesList()
@@ -63,4 +63,22 @@ class HeroesListInteractorTests: XCTestCase {
         XCTAssertTrue(self.presenterMock.isShowingError)
     }
     
+    func test_givenErrorOnRemote_whenLoadHeroesList_thenPresenterShowError() {
+        
+        let exp = expectation(description: "test_givenErrorOnRemote_whenLoadHeroesList_thenPresenterShowError")
+        
+        // Given
+        dataManagerMock.provokeErrorOnRemote()
+        
+        // When
+        subjectUnderTest.loadHeroesList()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 0.5)
+
+        // Then
+        XCTAssertTrue(self.presenterMock.isShowingError)
+    }
 }

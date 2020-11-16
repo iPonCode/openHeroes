@@ -44,12 +44,31 @@ class HeroDetailInteractorTests: XCTestCase {
         XCTAssertEqual(self.subjectUnderTest.detail, expectedDetail)
     }
 
-    func test_givenError_whenLoadHeroDetail_thenPresenterShowError() {
+    func test_givenErrorOnLocal_whenLoadHeroDetail_thenPresenterShowError() {
         
-        let exp = expectation(description: "test_givenError_whenLoadHeroDetail_thenPresenterShowError")
+        let exp = expectation(description: "test_givenErrorOnLocal_whenLoadHeroDetail_thenPresenterShowError")
         
         // Given
-        dataManagerMock.provokeError()
+        dataManagerMock.provokeErrorOnLocal()
+        
+        // When
+        subjectUnderTest.loadHeroDetail()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 0.5)
+
+        // Then
+        XCTAssertTrue(self.presenterMock.isShowingError)
+    }
+    
+    func test_givenErrorOnRemote_whenLoadHeroDetail_thenPresenterShowError() {
+        
+        let exp = expectation(description: "test_givenErrorOnRemote_whenLoadHeroDetail_thenPresenterShowError")
+        
+        // Given
+        dataManagerMock.provokeErrorOnRemote()
         
         // When
         subjectUnderTest.loadHeroDetail()

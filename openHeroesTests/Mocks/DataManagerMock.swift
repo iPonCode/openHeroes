@@ -97,30 +97,48 @@ class DataManagerMock: MarvelDataManager {
         return errorResponse
     }()
     
-    private var forceError: Bool = false
+    private var forceErrorOnLocal: Bool = false
+    private var forceErrorOnRemote: Bool = false
     private struct aLoadError: Error { let error: String = "ErrorDescriptionForLoadError" }
     private let error = aLoadError()
     
     func reset() {
-        forceError = false
+        forceErrorOnLocal = false
+        forceErrorOnRemote = false
     }
 
-    func provokeError() {
-        forceError = true
+    func provokeErrorOnLocal() {
+        forceErrorOnLocal = true
+    }
+
+    func provokeErrorOnRemote() {
+        forceErrorOnRemote = true
     }
 
     func loadHeroesList(completion complete: @escaping (MarvelListDataManagerResult) -> Void) {
         
-        complete(forceError ?
-                    .failure(MarvelDataManagerError.loadError(error)) :
-                    .success(listSuccessResponse))
+        if !forceErrorOnLocal && !forceErrorOnRemote {
+            complete(.success(listSuccessResponse))
+        } else if forceErrorOnRemote && !forceErrorOnLocal {
+            complete(.failure(.loadErrorRemote(error)))
+        } else if forceErrorOnLocal && !forceErrorOnRemote {
+            complete(.failure(.loadErrorLocal(error)))
+        } else {
+            complete(.failure(.loadErrorRemote(error)))
+        }
     }
     
     func loadHeroDetail(id: Int, completion complete: @escaping (MarvelDetailDataManagerResult) -> Void) {
 
-        complete(forceError ?
-                    .failure(MarvelDataManagerError.loadError(error)) :
-                    .success(detailSuccessResponse))
+        if !forceErrorOnLocal && !forceErrorOnRemote {
+            complete(.success(detailSuccessResponse))
+        } else if forceErrorOnRemote && !forceErrorOnLocal {
+            complete(.failure(.loadErrorRemote(error)))
+        } else if forceErrorOnLocal && !forceErrorOnRemote {
+            complete(.failure(.loadErrorLocal(error)))
+        } else {
+            complete(.failure(.loadErrorRemote(error)))
+        }
     }
     
 }

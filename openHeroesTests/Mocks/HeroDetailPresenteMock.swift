@@ -15,7 +15,7 @@ class HeroDetailPresenterMock: HeroDetailInteractorOutput {
     func updateView() {
     }
     
-    func showError(_ message: String?, title: String?) {
+    func showError(_ message: String?, title: String?, showInUI: Bool) {
         isShowingError = true
     }
     
