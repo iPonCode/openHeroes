@@ -24,7 +24,6 @@ class HeroesListViewController: UIViewController {
         return .lightContent
     }
     
-    // MARK: - Properties
     var presenter: HeroesListPresenter?
     
     lazy var tableView: UITableView = {
@@ -41,7 +40,6 @@ class HeroesListViewController: UIViewController {
         return refreshControl
     }()
     
-    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter?.viewDidLoad()

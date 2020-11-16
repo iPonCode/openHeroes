@@ -2,7 +2,7 @@
 //  openHeroes
 //
 //  Created by Simón Aparicio on 13/11/2020.
-//  
+//  Copyright © 2020 iPon.es All rights reserved.
 //
 
 import UIKit
