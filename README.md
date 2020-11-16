@@ -4,7 +4,7 @@
 |![openHeroesLogo](readme-img/openHeroes-iOS-icon-225px-trans.png "openHeroes")|This is a Swift (UIKit) App -  using the *[Marvel Characters API][apiMarvel]* - Please, feel free to comment, feedback are welcome - *Scroll down for changelog* - |
 |||
 |Some interesting point to hightlight:||
-|>>|**VIPER architecture** (really not necessary for this small proyect, but thiking on scale the App)|
+|>>|**VIPER architecture** (really not necessary for this small project, but thinking on that it should be able to scale easy)|
 |>>|**SOLID** principles followeded and **tried to be as CLEAN** as possible  <<|
 |>>|Some **Unit Test**|
 |<<|I did not have much time to think in the UI, so invite you to take a look on this **[myHeroes][myHeroes]** or this **[marvelous][marvelous]** small projects
